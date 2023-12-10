@@ -8,4 +8,12 @@ import javax.inject.Inject
 @HiltViewModel
 class ExpenseViewModel @Inject constructor(
     private val departmentRepository: DepartmentRepository
-) : ViewModel()
+) : ViewModel() {
+
+    var query: String = ""
+        private set
+
+    suspend fun onSearch(query: String) {
+        this.query = query
+    }
+}
