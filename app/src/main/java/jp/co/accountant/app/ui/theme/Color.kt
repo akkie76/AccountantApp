@@ -1,4 +1,4 @@
-package jp.co.accountant.ui.theme
+package jp.co.accountant.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
