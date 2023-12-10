@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "702086868782",
+    "project_id": "accountantapp-e02b0",
+    "storage_bucket": "accountantapp-e02b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702086868782:android:499a2d48d93570b16f14bf",
+        "android_client_info": {
+          "package_name": "jp.co.accountant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUyT9rlS4pd17SiDohCGFsgzsx4yakNS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

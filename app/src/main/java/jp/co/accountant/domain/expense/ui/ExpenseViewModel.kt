@@ -10,6 +10,10 @@ class ExpenseViewModel @Inject constructor(
     private val departmentRepository: DepartmentRepository
 ) : ViewModel() {
 
+    init {
+        departmentRepository.fetchData()
+    }
+
     var query: String = ""
         private set
 
