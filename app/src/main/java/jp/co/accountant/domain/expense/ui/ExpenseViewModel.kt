@@ -10,14 +10,11 @@ class ExpenseViewModel @Inject constructor(
     private val departmentRepository: DepartmentRepository
 ) : ViewModel() {
 
-    init {
-        departmentRepository.fetchData()
-    }
-
     var query: String = ""
         private set
 
     suspend fun onSearch(query: String) {
         this.query = query
+        departmentRepository.fetchData()
     }
 }

@@ -2,5 +2,5 @@ package jp.co.accountant.domain.expense.data
 
 interface DepartmentRepository {
 
-    fun fetchData()
+    suspend fun fetchData(): List<Department>
 }
