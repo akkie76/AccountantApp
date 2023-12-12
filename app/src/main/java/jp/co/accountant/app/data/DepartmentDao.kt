@@ -8,8 +8,11 @@ import androidx.room.Query
 @Dao
 interface DepartmentDao {
 
+    @Query("SELECT * FROM department WHERE id > :startAfterId ORDER BY id LIMIT :limit")
+    fun findDepartmentsAfterId(startAfterId: Int, limit: Int): List<Department>
+
     @Query("SELECT * FROM department WHERE name LIKE '%' || :query || '%' ORDER BY id")
-    fun getDepartments(query: String = "Mi"): List<Department>
+    fun findDepartmentsByName(query: String): List<Department>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(departments: List<Department>)
