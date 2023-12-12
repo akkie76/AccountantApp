@@ -5,7 +5,6 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
-    id("com.google.gms.google-services")
     id("com.google.devtools.ksp")
 }
 
@@ -68,8 +67,8 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("com.google.dagger:hilt-android:2.48.1")
     implementation("androidx.compose.material3:material3-android:1.2.0-alpha12")
+    // FIXME: kspへ移行する
     kapt("com.google.dagger:hilt-android-compiler:2.48.1")
-    implementation("com.google.firebase:firebase-database:20.3.0")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-common:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
