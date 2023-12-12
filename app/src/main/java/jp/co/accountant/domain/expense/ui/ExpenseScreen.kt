@@ -1,16 +1,24 @@
 package jp.co.accountant.domain.expense.ui
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Button
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MultiChoiceSegmentedButtonRow
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -24,14 +32,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemKey
 import jp.co.accountant.app.data.Department
-import jp.co.accountant.app.ui.SearchTextField
-import kotlinx.coroutines.launch
 
 @Composable
 fun ExpenseScreen(
@@ -56,135 +63,80 @@ private fun ExpenseContent(
     val sheetState = rememberModalBottomSheetState()
     var showBottomSheet by remember { mutableStateOf(false) }
 
-    Scaffold { paddingValues ->
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(title = { Text(text = "経費申請") })
+        }
+    ) { paddingValues ->
         Surface(modifier = Modifier.padding(paddingValues)) {
-            LazyColumn {
-                items(
-                    count = pagingItems.itemCount,
-                    key = pagingItems.itemKey()
-                ) { index ->
-                    val item = pagingItems[index] ?: return@items
-                    Text(text = "id: ${item.id}, name: ${item.name}")
-                }
-            }
-
-//            Column {
-//                SearchTextField(
-//                    text = text,
-//                    onValueChange = { newValue ->
-//                        text = newValue
-//                    },
-//                    onClickLeadingIcon = {
-//                        coroutineScope.launch {
-//                            //onSearchQuery(text)
-//                            showBottomSheet = true
-//                        }
-//                    }
-//                )
-//
-//                val checkedList = remember { mutableStateListOf<Int>() }
-//                val options = listOf("Favorites", "Trending", "Saved")
-//                val icons = listOf(
-//                    Icons.Filled.Star,
-//                    Icons.Filled.Star,
-//                    Icons.Filled.Star
-//                )
-//
-//                MultiChoiceSegmentedButtonRow {
-//                    options.forEachIndexed { index, label ->
-//                        SegmentedButton(
-//                            shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
-//                            icon = {
-//                                SegmentedButtonDefaults.Icon(active = index in checkedList) {
-//                                    Icon(
-//                                        imageVector = icons[index],
-//                                        contentDescription = null,
-//                                        modifier = Modifier.size(SegmentedButtonDefaults.IconSize)
-//                                    )
-//                                }
-//                            },
-//                            onCheckedChange = {
-//                                if (index in checkedList) {
-//                                    checkedList.remove(index)
-//                                } else {
-//                                    checkedList.add(index)
-//                                }
-//                            },
-//                            checked = index in checkedList
-//                        ) {
-//                            Text(label)
-//                        }
-//                    }
-//                }
-//            }
-
-            if (showBottomSheet) {
-                ModalBottomSheet(
-                    modifier = Modifier.fillMaxSize(),
-                    onDismissRequest = {
-                        showBottomSheet = false
-                    },
-                    sheetState = sheetState
+            Column {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Column {
-                        SearchTextField(
-                            text = text,
-                            onValueChange = { newValue ->
-                                text = newValue
-                            },
-                            onClickLeadingIcon = {
-                                coroutineScope.launch {
-                                    // onSearchQuery(text)
-                                    showBottomSheet = true
-                                }
-                            }
-                        )
-
-                        val checkedList = remember { mutableStateListOf<Int>() }
-                        val options = listOf("Favorites", "Trending", "Saved")
-                        val icons = listOf(
-                            Icons.Filled.Star,
-                            Icons.Filled.Star,
-                            Icons.Filled.Star
-                        )
-
-                        MultiChoiceSegmentedButtonRow {
-                            options.forEachIndexed { index, label ->
-                                SegmentedButton(
-                                    shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
-                                    icon = {
-                                        SegmentedButtonDefaults.Icon(active = index in checkedList) {
-                                            Icon(
-                                                imageVector = icons[index],
-                                                contentDescription = null,
-                                                modifier = Modifier.size(SegmentedButtonDefaults.IconSize)
-                                            )
-                                        }
-                                    },
-                                    onCheckedChange = {
-                                        if (index in checkedList) {
-                                            checkedList.remove(index)
-                                        } else {
-                                            checkedList.add(index)
-                                        }
-                                    },
-                                    checked = index in checkedList
-                                ) {
-                                    Text(label)
-                                }
+                    OutlinedTextField(
+                        value = text,
+                        onValueChange = {},
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(IntrinsicSize.Min),
+                        trailingIcon = {
+                            IconButton(onClick = {
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.Clear,
+                                    contentDescription = null
+                                )
                             }
                         }
+                    )
+                    Button(
+                        onClick = { /*TODO*/ },
+                        modifier = Modifier
+                            .height(IntrinsicSize.Min)
+                            .padding(start = 8.dp),
+                        shape = RoundedCornerShape(4.dp)
+                    ) {
+                        Text(
+                            text = "検索",
+                            style = MaterialTheme.typography.labelLarge
+                        )
                     }
+                }
 
-//                    Button(onClick = {
-//                        coroutineScope.launch { sheetState.hide() }.invokeOnCompletion {
-//                            if (!sheetState.isVisible) {
-//                                showBottomSheet = false
-//                            }
-//                        }
-//                    }) {
-//                        Text("Hide bottom sheet")
-//                    }
+                val checkedList = remember { mutableStateListOf<Int>() }
+                val options = listOf("Favorites", "Trending", "Saved")
+                val icons = listOf(
+                    Icons.Filled.Star,
+                    Icons.Filled.Star,
+                    Icons.Filled.Star
+                )
+
+                MultiChoiceSegmentedButtonRow {
+                    options.forEachIndexed { index, label ->
+                        SegmentedButton(
+                            shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
+                            icon = {
+                                SegmentedButtonDefaults.Icon(active = index in checkedList) {
+                                    Icon(
+                                        imageVector = icons[index],
+                                        contentDescription = null,
+                                        modifier = Modifier.size(SegmentedButtonDefaults.IconSize)
+                                    )
+                                }
+                            },
+                            onCheckedChange = {
+                                if (index in checkedList) {
+                                    checkedList.remove(index)
+                                } else {
+                                    checkedList.add(index)
+                                }
+                            },
+                            checked = index in checkedList
+                        ) {
+                            Text(label)
+                        }
+                    }
                 }
             }
         }
