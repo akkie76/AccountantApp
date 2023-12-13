@@ -2,6 +2,7 @@ package jp.co.accountant.app.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -33,10 +34,6 @@ fun SearchTextField(
             onValueChange(it)
         },
         leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = null
-            )
             IconButton(onClick = {
                 focusManager.clearFocus()
                 onClickLeadingIcon(text)
@@ -59,6 +56,7 @@ fun SearchTextField(
         keyboardActions = KeyboardActions(onSearch = {
             focusManager.clearFocus()
         }),
-        singleLine = true
+        singleLine = true,
+        shape = RoundedCornerShape(4.dp)
     )
 }

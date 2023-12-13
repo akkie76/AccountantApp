@@ -6,28 +6,22 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MultiChoiceSegmentedButtonRow
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SegmentedButton
-import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -101,41 +95,6 @@ private fun ExpenseContent(
                             text = "検索",
                             style = MaterialTheme.typography.labelLarge
                         )
-                    }
-                }
-
-                val checkedList = remember { mutableStateListOf<Int>() }
-                val options = listOf("Favorites", "Trending", "Saved")
-                val icons = listOf(
-                    Icons.Filled.Star,
-                    Icons.Filled.Star,
-                    Icons.Filled.Star
-                )
-
-                MultiChoiceSegmentedButtonRow {
-                    options.forEachIndexed { index, label ->
-                        SegmentedButton(
-                            shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
-                            icon = {
-                                SegmentedButtonDefaults.Icon(active = index in checkedList) {
-                                    Icon(
-                                        imageVector = icons[index],
-                                        contentDescription = null,
-                                        modifier = Modifier.size(SegmentedButtonDefaults.IconSize)
-                                    )
-                                }
-                            },
-                            onCheckedChange = {
-                                if (index in checkedList) {
-                                    checkedList.remove(index)
-                                } else {
-                                    checkedList.add(index)
-                                }
-                            },
-                            checked = index in checkedList
-                        ) {
-                            Text(label)
-                        }
                     }
                 }
             }
