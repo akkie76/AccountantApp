@@ -19,7 +19,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,8 +38,9 @@ fun ExpenseScreen(
     viewModel: ExpenseViewModel = hiltViewModel()
 ) {
     val departments = viewModel.departments.collectAsLazyPagingItems()
+    val searchQuery by remember { mutableStateOf(viewModel.searchQuery) }
 
-    ExpenseContent(departments, viewModel.query) { query ->
+    ExpenseContent(departments, searchQuery) { query ->
         viewModel.onSearch(query)
     }
 }
@@ -48,14 +48,12 @@ fun ExpenseScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ExpenseContent(
-    pagingItems: LazyPagingItems<Department>,
-    query: String = "",
-    onSearchQuery: suspend (String) -> Unit = {}
+    departments: LazyPagingItems<Department>,
+    searchQuery: String,
+    onSearchQuery: (String) -> Unit = {}
 ) {
-    val coroutineScope = rememberCoroutineScope()
-    var text by remember { mutableStateOf(query) }
-    val sheetState = rememberModalBottomSheetState()
-    var showBottomSheet by remember { mutableStateOf(false) }
+    var query by remember { mutableStateOf(searchQuery) }
+    var showSearchDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -69,7 +67,7 @@ private fun ExpenseContent(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     OutlinedTextField(
-                        value = text,
+                        value = query,
                         onValueChange = {},
                         modifier = Modifier
                             .weight(1f)
@@ -85,7 +83,7 @@ private fun ExpenseContent(
                         }
                     )
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { showSearchDialog = true },
                         modifier = Modifier
                             .height(IntrinsicSize.Min)
                             .padding(start = 8.dp),
@@ -97,6 +95,19 @@ private fun ExpenseContent(
                         )
                     }
                 }
+            }
+
+            if (showSearchDialog) {
+                SearchDialog(
+//                    text = query,
+//                    departments = departments,
+//                    onSearchQuery = { newValue ->
+//                        onSearchQuery(newValue)
+//                    },
+                    onClickCancel = {
+                        showSearchDialog = false
+                    }
+                )
             }
         }
     }

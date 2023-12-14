@@ -1,5 +1,6 @@
 package jp.co.accountant.domain.search.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -23,6 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import jp.co.accountant.app.ui.SearchTextField
@@ -75,7 +77,7 @@ fun SearchScreen() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SegmentedButtonRow() {
+private fun SegmentedButtonRow() {
     var selectedIndex by remember { mutableStateOf(0) }
     val options = listOf("全て", "コード", "部門")
 

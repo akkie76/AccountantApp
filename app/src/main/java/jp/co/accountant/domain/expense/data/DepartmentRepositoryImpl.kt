@@ -11,10 +11,10 @@ class DepartmentRepositoryImpl @Inject constructor(
     private val departmentDataSource: DepartmentDataSource
 ) : DepartmentRepository {
 
-    override fun fetchDepartments(): Flow<PagingData<Department>> {
+    override fun fetchDepartments(query: String): Flow<PagingData<Department>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = MAX_PAGING_SIZE),
-            pagingSourceFactory = { DepartmentPagingSource(departmentDataSource) }
+            pagingSourceFactory = { DepartmentPagingSource(departmentDataSource, query) }
         ).flow
     }
 

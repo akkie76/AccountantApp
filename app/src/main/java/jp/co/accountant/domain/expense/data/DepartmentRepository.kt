@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface DepartmentRepository {
 
-    fun fetchDepartments(): Flow<PagingData<Department>>
+    fun fetchDepartments(query: String): Flow<PagingData<Department>>
 }

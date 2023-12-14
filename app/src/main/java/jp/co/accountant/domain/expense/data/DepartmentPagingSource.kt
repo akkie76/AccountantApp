@@ -7,7 +7,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class DepartmentPagingSource(
-    private val departmentDataSource: DepartmentDataSource
+    private val departmentDataSource: DepartmentDataSource,
+    private val query: String
 ) : PagingSource<Int, Department>() {
 
     private var totalCount: Int = 0
@@ -17,7 +18,8 @@ class DepartmentPagingSource(
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
             val departments = withContext(Dispatchers.IO) {
-                departmentDataSource.findDepartmentsAfterId(lastDepartmentId, params.loadSize)
+                //departmentDataSource.findDepartmentsAfterId(lastDepartmentId, params.loadSize)
+                departmentDataSource.findDepartmentsByQuery(query, lastDepartmentId, params.loadSize)
             }
 
             totalCount += departments.size

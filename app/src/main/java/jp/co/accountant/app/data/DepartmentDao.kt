@@ -11,8 +11,8 @@ interface DepartmentDao {
     @Query("SELECT * FROM department WHERE id > :startAfterId ORDER BY id LIMIT :limit")
     fun findDepartmentsAfterId(startAfterId: Int, limit: Int): List<Department>
 
-    @Query("SELECT * FROM department WHERE name LIKE '%' || :query || '%' ORDER BY id")
-    fun findDepartmentsByName(query: String): List<Department>
+    @Query("SELECT * FROM department WHERE name LIKE '%' || :query || '%' AND id > :startAfterId ORDER BY id LIMIT :limit")
+    fun findDepartmentsByQuery(query: String, startAfterId: Int, limit: Int): List<Department>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(departments: List<Department>)
