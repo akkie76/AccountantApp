@@ -50,7 +50,7 @@ fun ExpenseScreen(
 private fun ExpenseContent(
     departments: LazyPagingItems<Department>,
     searchQuery: String,
-    onSearchQuery: (String) -> Unit = {}
+    onSearchQuery: suspend (String) -> Unit = {}
 ) {
     var query by remember { mutableStateOf(searchQuery) }
     var showSearchDialog by remember { mutableStateOf(false) }

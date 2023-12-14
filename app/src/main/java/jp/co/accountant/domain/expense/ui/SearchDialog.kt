@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,6 +28,7 @@ import jp.co.accountant.app.data.Department
 import jp.co.accountant.app.ui.SearchTextField
 import jp.co.accountant.app.ui.theme.AccountantAppTheme
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
 
 @Composable
 fun SearchDialog(
@@ -38,6 +40,7 @@ fun SearchDialog(
 ) {
     var query by remember { mutableStateOf(viewModel.searchQuery) }
     val departments = viewModel.departments.collectAsLazyPagingItems()
+    val scope = rememberCoroutineScope()
 
     AlertDialog(
         modifier = Modifier.requiredHeight(600.dp),
@@ -53,9 +56,10 @@ fun SearchDialog(
                     text = query,
                     onValueChange = { newValue ->
                         query = newValue
-                        viewModel.onSearch(newValue)
                     }, onClickLeadingIcon = {
-                        viewModel.onSearch("Mike")
+                        scope.launch {
+                            viewModel.onSearch(query)
+                        }
                     }
                 )
                 LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
