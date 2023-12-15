@@ -15,16 +15,21 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SegmentedButtonRow() {
+fun SegmentedButtonRow(
+    onCheckedChange: (Int) -> Unit = {}
+) {
     var selectedIndex by remember { mutableStateOf(0) }
-    val options = listOf("全て", "コード", "部門")
+    val options = listOf("全て", "部門", "コード")
 
     MultiChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
         options.forEachIndexed { index, label ->
             SegmentedButton(
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                 icon = {},
-                onCheckedChange = { selectedIndex = index },
+                onCheckedChange = {
+                    selectedIndex = index
+                    onCheckedChange(selectedIndex)
+                },
                 checked = selectedIndex == index
             ) {
                 Text(label)

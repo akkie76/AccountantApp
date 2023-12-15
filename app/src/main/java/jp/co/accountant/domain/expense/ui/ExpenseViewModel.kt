@@ -2,6 +2,7 @@ package jp.co.accountant.domain.expense.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.util.query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.co.accountant.app.data.Department
 import jp.co.accountant.domain.expense.data.DepartmentDataSource
@@ -20,23 +21,37 @@ class ExpenseViewModel @Inject constructor(
     private val dataSource: DepartmentDataSource
 ) : ViewModel() {
 
-    var searchQuery: String = "John"
-        private set
-
-//    var departments = departmentRepository.fetchDepartments(searchQuery).cachedIn(viewModelScope)
-//        private set
-
     private val _departments = MutableStateFlow(listOf<Department>())
     val departments: StateFlow<List<Department>> = _departments.asStateFlow()
 
-    // flowOf(PagingData.empty<Department>())
+    private var searchResults = listOf<Department>()
+
+    private var searchQuery: String = ""
 
     fun onSearch(query: String) = viewModelScope.launch {
         searchQuery = query
-        // departments = departmentRepository.fetchDepartments(searchQuery).cachedIn(viewModelScope)
         withContext(Dispatchers.Default) {
-            val newList = dataSource.findDepartmentsByQuery(searchQuery, 0, 50)
-            _departments.value = newList
+            searchResults = dataSource.findDepartmentsByQuery(searchQuery, 50)
+            _departments.value = searchResults.toList()
+        }
+    }
+
+    fun onSegmentChange(index: Int) {
+        when (index) {
+            0 -> {
+                // 全部のカラムで検索
+                _departments.value = searchResults.toList()
+            }
+            1 -> {
+                // 検索するカラムが違う
+                val filteredList = searchResults.filter { it.name.contains(searchQuery) }.toList()
+                _departments.value = filteredList
+            }
+            2 -> {
+                // コードカラムで検索
+                val filteredList = searchResults.filter { it.code.contains(searchQuery) }.toList()
+                _departments.value = filteredList
+            }
         }
     }
 }

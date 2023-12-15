@@ -44,7 +44,9 @@ fun SearchDialog(
         onDismissRequest = {
         },
         title = {
-            SegmentedButtonRow()
+            SegmentedButtonRow { selectedIndex ->
+                viewModel.onSegmentChange(selectedIndex)
+            }
         },
         text = {
             Column(Modifier.fillMaxHeight()) {
@@ -80,23 +82,3 @@ fun SearchDialog(
         }
     )
 }
-//
-// @Preview
-// @Composable
-// private fun PreviewSearchDialog() {
-//    AccountantAppTheme {
-//        Surface {
-//            val dummyDepartments = mutableListOf<Department>()
-//            for (i in 1..10) {
-//                val dummyDepartment = Department(
-//                    id = i,
-//                    name = "Department $i"
-//                )
-//                dummyDepartments.add(dummyDepartment)
-//            }
-//            val emptyPagingData = flowOf(PagingData.from(dummyDepartments))
-//            val emptyLazyPagingItems = emptyPagingData.collectAsLazyPagingItems()
-//            SearchDialog(text = "", departments = emptyLazyPagingItems)
-//        }
-//    }
-// }

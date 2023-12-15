@@ -18,7 +18,7 @@ class DepartmentPagingSource(
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
             val departments = withContext(Dispatchers.Default) {
-                departmentDataSource.findDepartmentsByQuery(query, lastDepartmentId, params.loadSize)
+                departmentDataSource.findDepartmentsByQuery(query, params.loadSize)
             }
 
             totalCount += departments.size
