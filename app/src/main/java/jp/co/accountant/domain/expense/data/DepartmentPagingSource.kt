@@ -17,8 +17,7 @@ class DepartmentPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Department> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val departments = withContext(Dispatchers.IO) {
-                //departmentDataSource.findDepartmentsAfterId(lastDepartmentId, params.loadSize)
+            val departments = withContext(Dispatchers.Default) {
                 departmentDataSource.findDepartmentsByQuery(query, lastDepartmentId, params.loadSize)
             }
 

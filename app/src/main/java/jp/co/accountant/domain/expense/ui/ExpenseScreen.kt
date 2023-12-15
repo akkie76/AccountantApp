@@ -37,10 +37,10 @@ import jp.co.accountant.app.data.Department
 fun ExpenseScreen(
     viewModel: ExpenseViewModel = hiltViewModel()
 ) {
-    val departments = viewModel.departments.collectAsLazyPagingItems()
+    //val departments = viewModel.departments.collectAsLazyPagingItems()
     val searchQuery by remember { mutableStateOf(viewModel.searchQuery) }
 
-    ExpenseContent(departments, searchQuery) { query ->
+    ExpenseContent(searchQuery) { query ->
         viewModel.onSearch(query)
     }
 }
@@ -48,7 +48,7 @@ fun ExpenseScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ExpenseContent(
-    departments: LazyPagingItems<Department>,
+    //departments: LazyPagingItems<Department>,
     searchQuery: String,
     onSearchQuery: suspend (String) -> Unit = {}
 ) {
@@ -99,7 +99,7 @@ private fun ExpenseContent(
 
             if (showSearchDialog) {
                 SearchDialog(
-//                    text = query,
+                    text = query,
 //                    departments = departments,
 //                    onSearchQuery = { newValue ->
 //                        onSearchQuery(newValue)

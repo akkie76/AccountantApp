@@ -6,12 +6,15 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -32,14 +35,14 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SearchDialog(
-//    text: String,
+    text: String,
 //    departments: LazyPagingItems<Department>,
 //    onSearchQuery: (String) -> Unit = {},
     viewModel: ExpenseViewModel = hiltViewModel(),
     onClickCancel: () -> Unit = {}
 ) {
-    var query by remember { mutableStateOf(viewModel.searchQuery) }
-    val departments = viewModel.departments.collectAsLazyPagingItems()
+    var query by remember { mutableStateOf(text) }
+    val departments by viewModel.departments.collectAsState()
     val scope = rememberCoroutineScope()
 
     AlertDialog(
@@ -56,6 +59,9 @@ fun SearchDialog(
                     text = query,
                     onValueChange = { newValue ->
                         query = newValue
+                        scope.launch {
+                            viewModel.onSearch(query)
+                        }
                     }, onClickLeadingIcon = {
                         scope.launch {
                             viewModel.onSearch(query)
@@ -63,12 +69,8 @@ fun SearchDialog(
                     }
                 )
                 LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
-                    items(
-                        count = departments.itemCount,
-                        key = departments.itemKey()
-                    ) { index ->
-                        val department = departments[index] ?: return@items
-                        Text(text = "${department.id}, ${department.name}")
+                    items(departments) {
+                        Text(text = "${it.id}, ${it.name}")
                     }
                 }
             }
