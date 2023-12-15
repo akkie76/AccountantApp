@@ -9,41 +9,34 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.PagingData
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemKey
-import jp.co.accountant.app.data.Department
 import jp.co.accountant.app.ui.SearchTextField
-import jp.co.accountant.app.ui.theme.AccountantAppTheme
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 @Composable
 fun SearchDialog(
-    text: String,
-//    departments: LazyPagingItems<Department>,
-//    onSearchQuery: (String) -> Unit = {},
     viewModel: ExpenseViewModel = hiltViewModel(),
+    text: String,
     onClickCancel: () -> Unit = {}
 ) {
     var query by remember { mutableStateOf(text) }
     val departments by viewModel.departments.collectAsState()
     val scope = rememberCoroutineScope()
+
+    LaunchedEffect(text) {
+        viewModel.onSearch(text)
+    }
 
     AlertDialog(
         modifier = Modifier.requiredHeight(600.dp),
@@ -62,7 +55,8 @@ fun SearchDialog(
                         scope.launch {
                             viewModel.onSearch(query)
                         }
-                    }, onClickLeadingIcon = {
+                    },
+                    onClickLeadingIcon = {
                         scope.launch {
                             viewModel.onSearch(query)
                         }
@@ -87,9 +81,9 @@ fun SearchDialog(
     )
 }
 //
-//@Preview
-//@Composable
-//private fun PreviewSearchDialog() {
+// @Preview
+// @Composable
+// private fun PreviewSearchDialog() {
 //    AccountantAppTheme {
 //        Surface {
 //            val dummyDepartments = mutableListOf<Department>()
@@ -105,4 +99,4 @@ fun SearchDialog(
 //            SearchDialog(text = "", departments = emptyLazyPagingItems)
 //        }
 //    }
-//}
+// }

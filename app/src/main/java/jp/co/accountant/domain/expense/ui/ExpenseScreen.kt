@@ -23,37 +23,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
-import jp.co.accountant.app.data.Department
-
-@Composable
-fun ExpenseScreen(
-    viewModel: ExpenseViewModel = hiltViewModel()
-) {
-    //val departments = viewModel.departments.collectAsLazyPagingItems()
-    val searchQuery by remember { mutableStateOf(viewModel.searchQuery) }
-
-    ExpenseContent(searchQuery) { query ->
-        viewModel.onSearch(query)
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ExpenseContent(
-    //departments: LazyPagingItems<Department>,
-    searchQuery: String,
-    onSearchQuery: suspend (String) -> Unit = {}
-) {
-    var query by remember { mutableStateOf(searchQuery) }
+fun ExpenseScreen() {
+    var query by remember { mutableStateOf("") }
     var showSearchDialog by remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
 
     Scaffold(
         topBar = {
@@ -68,22 +49,30 @@ private fun ExpenseContent(
                 ) {
                     OutlinedTextField(
                         value = query,
-                        onValueChange = {},
+                        onValueChange = { newValue ->
+                            query = newValue
+                        },
                         modifier = Modifier
                             .weight(1f)
                             .height(IntrinsicSize.Min),
                         trailingIcon = {
-                            IconButton(onClick = {
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Default.Clear,
-                                    contentDescription = null
-                                )
+                            if (query.isNotEmpty()) {
+                                IconButton(onClick = {
+                                    query = ""
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Clear,
+                                        contentDescription = null
+                                    )
+                                }
                             }
                         }
                     )
                     Button(
-                        onClick = { showSearchDialog = true },
+                        onClick = {
+                            showSearchDialog = true
+                            focusManager.clearFocus()
+                        },
                         modifier = Modifier
                             .height(IntrinsicSize.Min)
                             .padding(start = 8.dp),
@@ -100,10 +89,6 @@ private fun ExpenseContent(
             if (showSearchDialog) {
                 SearchDialog(
                     text = query,
-//                    departments = departments,
-//                    onSearchQuery = { newValue ->
-//                        onSearchQuery(newValue)
-//                    },
                     onClickCancel = {
                         showSearchDialog = false
                     }

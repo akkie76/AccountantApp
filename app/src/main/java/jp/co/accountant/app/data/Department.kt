@@ -3,7 +3,7 @@ package jp.co.accountant.app.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "department")
+@Entity(tableName = "departments")
 data class Department(
     @PrimaryKey
     val id: Int,
