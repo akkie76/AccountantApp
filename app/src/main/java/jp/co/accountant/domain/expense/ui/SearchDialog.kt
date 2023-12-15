@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import jp.co.accountant.app.ui.SearchTextField
+import jp.co.accountant.domain.expense.ui.component.DepartmentListItem
 import kotlinx.coroutines.launch
 
 @Composable
@@ -47,7 +48,6 @@ fun SearchDialog(
         },
         text = {
             Column(Modifier.fillMaxHeight()) {
-                // TODO: バックキーでフォーカスを外す
                 SearchTextField(
                     text = query,
                     onValueChange = { newValue ->
@@ -64,7 +64,7 @@ fun SearchDialog(
                 )
                 LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
                     items(departments) {
-                        Text(text = "${it.id}, ${it.name}")
+                        DepartmentListItem(department = it)
                     }
                 }
             }
