@@ -2,59 +2,54 @@ package jp.co.accountant.domain.expense.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.util.query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.co.accountant.app.data.Department
-import jp.co.accountant.domain.expense.data.DepartmentDataSource
-import jp.co.accountant.domain.expense.data.DepartmentRepository
-import kotlinx.coroutines.Dispatchers
+import jp.co.accountant.domain.expense.usecase.FindDepartmentsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class ExpenseViewModel @Inject constructor(
-    private val departmentRepository: DepartmentRepository,
-    private val dataSource: DepartmentDataSource
+    private val findDepartmentsUseCase: FindDepartmentsUseCase
 ) : ViewModel() {
 
     private val _departments = MutableStateFlow(listOf<Department>())
     val departments: StateFlow<List<Department>> = _departments.asStateFlow()
 
-    private var searchResults = listOf<Department>()
-
     private var searchQuery: String = ""
     private var selectedIndex: Int = 0
 
+    /**
+     * 部門検索を行う
+     *
+     * @param query 検索クエリ
+     */
     fun onSearch(query: String) = viewModelScope.launch {
         searchQuery = query
         searchDepartments()
     }
 
+    /**
+     * セグメントの変更を行う
+     *
+     * @param index @param index 選択されたindex
+     */
     fun onSegmentChange(index: Int) = viewModelScope.launch {
         selectedIndex = index
         searchDepartments()
     }
 
+    /**
+     * 部門検索を行う
+     */
     private fun searchDepartments() = viewModelScope.launch {
-        withContext(Dispatchers.Default) {
-            when (selectedIndex) {
-                0 -> {
-                    val searchResults = dataSource.findDepartmentsByQuery(searchQuery, 50)
-                    _departments.value = searchResults.toList()
-                }
-                1 -> {
-                    val searchResults = dataSource.findDepartmentsByQueryWithName(searchQuery, 50)
-                    _departments.value = searchResults.toList()
-                }
-                2 -> {
-                    val searchResults = dataSource.findDepartmentsByQueryWithCode(searchQuery, 50)
-                    _departments.value = searchResults.toList()
-                }
-            }
-        }
+        val searchResults = findDepartmentsUseCase.findDepartments(
+            query = searchQuery,
+            index = selectedIndex
+        )
+        _departments.value = searchResults
     }
 }
