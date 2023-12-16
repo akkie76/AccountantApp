@@ -67,8 +67,8 @@ fun SearchDialog(
                     }
                 )
                 LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
-                    items(searchResults) {
-                        DepartmentListItem(department = it.department) { department ->
+                    items(searchResults) { departmentWithHistory ->
+                        DepartmentListItem(departmentWithHistory) { department ->
                             viewModel.onSaveDepartmentHistory(department.id)
                             onSelectDepartment(department)
                         }

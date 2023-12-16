@@ -17,12 +17,12 @@ interface DepartmentDao {
      */
     @Query(
         "SELECT departments.*, (histories.id IS NOT NULL) AS has_history " +
-                "FROM departments " +
-                "LEFT JOIN histories ON departments.id = histories.department_id  " +
-                "WHERE name LIKE '%' || :query || '%' " +
-                "OR code LIKE '%' || :query || '%' " +
-                "ORDER BY has_history DESC, id ASC " +
-                "LIMIT :limit"
+            "FROM departments " +
+            "LEFT JOIN histories ON departments.id = histories.department_id  " +
+            "WHERE name LIKE '%' || :query || '%' " +
+            "OR code LIKE '%' || :query || '%' " +
+            "ORDER BY has_history DESC, id ASC " +
+            "LIMIT :limit"
     )
     fun findDepartmentsByQuery(
         query: String,
@@ -38,11 +38,11 @@ interface DepartmentDao {
      */
     @Query(
         "SELECT departments.*, (histories.id IS NOT NULL) AS has_history " +
-                "FROM departments " +
-                "LEFT JOIN histories ON departments.id = histories.department_id  " +
-                "WHERE name LIKE '%' || :query || '%' " +
-                "ORDER BY has_history DESC, id ASC " +
-                "LIMIT :limit"
+            "FROM departments " +
+            "LEFT JOIN histories ON departments.id = histories.department_id  " +
+            "WHERE name LIKE '%' || :query || '%' " +
+            "ORDER BY has_history DESC, id ASC " +
+            "LIMIT :limit"
     )
     fun findDepartmentsByQueryWithName(
         query: String,
@@ -58,11 +58,11 @@ interface DepartmentDao {
      */
     @Query(
         "SELECT departments.*, (histories.id IS NOT NULL) AS has_history " +
-                "FROM departments " +
-                "LEFT JOIN histories ON departments.id = histories.department_id  " +
-                "WHERE code LIKE '%' || :query || '%' " +
-                "ORDER BY has_history DESC, id ASC " +
-                "LIMIT :limit"
+            "FROM departments " +
+            "LEFT JOIN histories ON departments.id = histories.department_id  " +
+            "WHERE code LIKE '%' || :query || '%' " +
+            "ORDER BY has_history DESC, id ASC " +
+            "LIMIT :limit"
     )
     fun findDepartmentsByQueryWithCode(
         query: String,
