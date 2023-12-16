@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import jp.co.accountant.app.data.AppDatabase
 import jp.co.accountant.app.data.DepartmentDao
+import jp.co.accountant.app.data.HistoryDao
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -17,5 +18,11 @@ object DatabaseModule {
     fun provideDepartmentDao(@ApplicationContext context: Context): DepartmentDao {
         val appDatabase = AppDatabase.getInstance(context)
         return appDatabase.departmentDao()
+    }
+
+    @Provides
+    fun provideHistoryDao(@ApplicationContext context: Context): HistoryDao {
+        val appDatabase = AppDatabase.getInstance(context)
+        return appDatabase.historyDao()
     }
 }

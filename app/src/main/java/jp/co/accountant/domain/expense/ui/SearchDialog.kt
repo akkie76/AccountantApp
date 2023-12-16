@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import jp.co.accountant.app.data.Department
 import jp.co.accountant.app.ui.SearchTextField
 import jp.co.accountant.domain.expense.ui.component.DepartmentListItem
 import kotlinx.coroutines.launch
@@ -29,7 +30,8 @@ import kotlinx.coroutines.launch
 fun SearchDialog(
     viewModel: ExpenseViewModel = hiltViewModel(),
     text: String,
-    onClickCancel: () -> Unit = {}
+    onSelectDepartment: (Department) -> Unit = {},
+    onDismissRequest: () -> Unit = {}
 ) {
     var query by remember { mutableStateOf(text) }
     val departments by viewModel.departments.collectAsState()
@@ -66,7 +68,10 @@ fun SearchDialog(
                 )
                 LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
                     items(departments) {
-                        DepartmentListItem(department = it)
+                        DepartmentListItem(department = it) { department ->
+                            viewModel.onSaveDepartmentHistory(department.id)
+                            onSelectDepartment(department)
+                        }
                     }
                 }
             }
@@ -76,7 +81,7 @@ fun SearchDialog(
                 text = "キャンセル",
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
-                    .clickable { onClickCancel() },
+                    .clickable { onDismissRequest() },
                 style = MaterialTheme.typography.labelLarge
             )
         }

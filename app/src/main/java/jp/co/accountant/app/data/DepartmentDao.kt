@@ -8,6 +8,12 @@ import androidx.room.Query
 @Dao
 interface DepartmentDao {
 
+    /**
+     * departments tableのname, code columnからLIKE検索を行う
+     *
+     * @param query 検索クエリ
+     * @param limit リミット数
+     */
     @Query(
         "SELECT * FROM departments " +
             "WHERE name LIKE '%' || :query || '%' " +
@@ -20,6 +26,12 @@ interface DepartmentDao {
         limit: Int
     ): List<Department>
 
+    /**
+     * departments tableのname columnからLIKE検索を行う
+     *
+     * @param query 検索クエリ
+     * @param limit リミット数
+     */
     @Query(
         "SELECT * FROM departments " +
             "WHERE name LIKE '%' || :query || '%' " +
@@ -31,6 +43,12 @@ interface DepartmentDao {
         limit: Int
     ): List<Department>
 
+    /**
+     * departments tableのcode columnからLIKE検索を行う
+     *
+     * @param query 検索クエリ
+     * @param limit リミット数
+     */
     @Query(
         "SELECT * FROM departments " +
             "WHERE code LIKE '%' || :query || '%' " +
@@ -42,6 +60,11 @@ interface DepartmentDao {
         limit: Int
     ): List<Department>
 
+    /**
+     * departments tableに部門一覧をinsertする
+     *
+     * @param departments 部門一覧
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(departments: List<Department>)
 }

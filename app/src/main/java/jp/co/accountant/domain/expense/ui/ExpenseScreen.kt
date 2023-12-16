@@ -89,7 +89,11 @@ fun ExpenseScreen() {
             if (showSearchDialog) {
                 SearchDialog(
                     text = query,
-                    onClickCancel = {
+                    onSelectDepartment = { department ->
+                        query = department.name
+                        showSearchDialog = false
+                    },
+                    onDismissRequest = {
                         showSearchDialog = false
                     }
                 )

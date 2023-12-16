@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.co.accountant.app.data.Department
 import jp.co.accountant.domain.expense.usecase.FindDepartmentsUseCase
+import jp.co.accountant.domain.expense.usecase.InsertHistoryUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExpenseViewModel @Inject constructor(
-    private val findDepartmentsUseCase: FindDepartmentsUseCase
+    private val findDepartmentsUseCase: FindDepartmentsUseCase,
+    private val insertHistoryUseCase: InsertHistoryUseCase
 ) : ViewModel() {
 
     private val _departments = MutableStateFlow(listOf<Department>())
@@ -40,6 +42,15 @@ class ExpenseViewModel @Inject constructor(
     fun onSegmentChange(index: Int) = viewModelScope.launch {
         selectedIndex = index
         searchDepartments()
+    }
+
+    /**
+     * 部門の利用履歴を保存する
+     *
+     * @param departmentId 部門id
+     */
+    fun onSaveDepartmentHistory(departmentId: Int) = viewModelScope.launch {
+        insertHistoryUseCase.insert(departmentId)
     }
 
     /**
