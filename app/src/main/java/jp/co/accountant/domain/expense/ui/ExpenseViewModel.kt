@@ -3,7 +3,7 @@ package jp.co.accountant.domain.expense.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.co.accountant.app.data.Department
+import jp.co.accountant.app.data.DepartmentWithHistory
 import jp.co.accountant.domain.expense.usecase.FindDepartmentsUseCase
 import jp.co.accountant.domain.expense.usecase.InsertHistoryUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,8 +18,8 @@ class ExpenseViewModel @Inject constructor(
     private val insertHistoryUseCase: InsertHistoryUseCase
 ) : ViewModel() {
 
-    private val _departments = MutableStateFlow(listOf<Department>())
-    val departments: StateFlow<List<Department>> = _departments.asStateFlow()
+    private val _searchResults = MutableStateFlow(listOf<DepartmentWithHistory>())
+    val searchResults: StateFlow<List<DepartmentWithHistory>> = _searchResults.asStateFlow()
 
     private var searchQuery: String = ""
     private var selectedIndex: Int = 0
@@ -57,10 +57,10 @@ class ExpenseViewModel @Inject constructor(
      * 部門検索を行う
      */
     private fun searchDepartments() = viewModelScope.launch {
-        val searchResults = findDepartmentsUseCase.findDepartments(
+        val results = findDepartmentsUseCase.findDepartments(
             query = searchQuery,
             index = selectedIndex
         )
-        _departments.value = searchResults
+        _searchResults.value = results
     }
 }

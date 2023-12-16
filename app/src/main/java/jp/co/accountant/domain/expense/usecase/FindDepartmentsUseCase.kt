@@ -1,6 +1,6 @@
 package jp.co.accountant.domain.expense.usecase
 
-import jp.co.accountant.app.data.Department
+import jp.co.accountant.app.data.DepartmentWithHistory
 
 interface FindDepartmentsUseCase {
 
@@ -9,7 +9,7 @@ interface FindDepartmentsUseCase {
      *
      * @param query 検索クエリ
      * @param index 選択されたindex
-     * @return 条件に一致した部門配列
+     * @return 利用履歴を含めた部門情報配列
      */
-    suspend fun findDepartments(query: String, index: Int): List<Department>
+    suspend fun findDepartments(query: String, index: Int): List<DepartmentWithHistory>
 }

@@ -34,7 +34,7 @@ fun SearchDialog(
     onDismissRequest: () -> Unit = {}
 ) {
     var query by remember { mutableStateOf(text) }
-    val departments by viewModel.departments.collectAsState()
+    val searchResults by viewModel.searchResults.collectAsState()
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(text) {
@@ -67,8 +67,8 @@ fun SearchDialog(
                     }
                 )
                 LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
-                    items(departments) {
-                        DepartmentListItem(department = it) { department ->
+                    items(searchResults) {
+                        DepartmentListItem(department = it.department) { department ->
                             viewModel.onSaveDepartmentHistory(department.id)
                             onSelectDepartment(department)
                         }

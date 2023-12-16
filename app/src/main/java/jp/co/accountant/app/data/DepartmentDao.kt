@@ -13,9 +13,10 @@ interface DepartmentDao {
      *
      * @param query 検索クエリ
      * @param limit リミット数
+     * @return 利用履歴を含めた部門情報配列
      */
     @Query(
-        "SELECT * FROM departments " +
+        "SELECT departments.*, (histories.id IS NOT NULL) AS has_history FROM departments LEFT JOIN histories ON departments.id = histories.department_id  " +
             "WHERE name LIKE '%' || :query || '%' " +
             "OR code LIKE '%' || :query || '%' " +
             "ORDER BY id " +
@@ -24,16 +25,17 @@ interface DepartmentDao {
     fun findDepartmentsByQuery(
         query: String,
         limit: Int
-    ): List<Department>
+    ): List<DepartmentWithHistory>
 
     /**
      * departments tableのname columnからLIKE検索を行う
      *
      * @param query 検索クエリ
      * @param limit リミット数
+     * @return 利用履歴を含めた部門情報配列
      */
     @Query(
-        "SELECT * FROM departments " +
+        "SELECT departments.*, (histories.id IS NOT NULL) AS has_history FROM departments LEFT JOIN histories ON departments.id = histories.department_id  " +
             "WHERE name LIKE '%' || :query || '%' " +
             "ORDER BY id " +
             "LIMIT :limit"
@@ -41,16 +43,17 @@ interface DepartmentDao {
     fun findDepartmentsByQueryWithName(
         query: String,
         limit: Int
-    ): List<Department>
+    ): List<DepartmentWithHistory>
 
     /**
      * departments tableのcode columnからLIKE検索を行う
      *
      * @param query 検索クエリ
      * @param limit リミット数
+     * @return 利用履歴を含めた部門情報配列
      */
     @Query(
-        "SELECT * FROM departments " +
+        "SELECT departments.*, (histories.id IS NOT NULL) AS has_history FROM departments LEFT JOIN histories ON departments.id = histories.department_id  " +
             "WHERE code LIKE '%' || :query || '%' " +
             "ORDER BY id " +
             "LIMIT :limit"
@@ -58,7 +61,7 @@ interface DepartmentDao {
     fun findDepartmentsByQueryWithCode(
         query: String,
         limit: Int
-    ): List<Department>
+    ): List<DepartmentWithHistory>
 
     /**
      * departments tableに部門一覧をinsertする
