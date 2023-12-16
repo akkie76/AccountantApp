@@ -27,30 +27,33 @@ class ExpenseViewModel @Inject constructor(
     private var searchResults = listOf<Department>()
 
     private var searchQuery: String = ""
+    private var selectedIndex: Int = 0
 
     fun onSearch(query: String) = viewModelScope.launch {
         searchQuery = query
-        withContext(Dispatchers.Default) {
-            searchResults = dataSource.findDepartmentsByQuery(searchQuery, 50)
-            _departments.value = searchResults.toList()
-        }
+        searchDepartments()
     }
 
-    fun onSegmentChange(index: Int) {
-        when (index) {
-            0 -> {
-                // 全部のカラムで検索
-                _departments.value = searchResults.toList()
-            }
-            1 -> {
-                // 検索するカラムが違う
-                val filteredList = searchResults.filter { it.name.contains(searchQuery) }.toList()
-                _departments.value = filteredList
-            }
-            2 -> {
-                // コードカラムで検索
-                val filteredList = searchResults.filter { it.code.contains(searchQuery) }.toList()
-                _departments.value = filteredList
+    fun onSegmentChange(index: Int) = viewModelScope.launch {
+        selectedIndex = index
+        searchDepartments()
+    }
+
+    private fun searchDepartments() = viewModelScope.launch {
+        withContext(Dispatchers.Default) {
+            when (selectedIndex) {
+                0 -> {
+                    val searchResults = dataSource.findDepartmentsByQuery(searchQuery, 50)
+                    _departments.value = searchResults.toList()
+                }
+                1 -> {
+                    val searchResults = dataSource.findDepartmentsByQueryWithName(searchQuery, 50)
+                    _departments.value = searchResults.toList()
+                }
+                2 -> {
+                    val searchResults = dataSource.findDepartmentsByQueryWithCode(searchQuery, 50)
+                    _departments.value = searchResults.toList()
+                }
             }
         }
     }

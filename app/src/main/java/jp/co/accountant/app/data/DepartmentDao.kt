@@ -12,27 +12,33 @@ interface DepartmentDao {
         "SELECT * FROM departments " +
             "WHERE name LIKE '%' || :query || '%' " +
             "OR code LIKE '%' || :query || '%' " +
-            "AND id > :startAfterId " +
             "ORDER BY id " +
             "LIMIT :limit"
     )
     fun findDepartmentsByQuery(
         query: String,
-        startAfterId: Int,
         limit: Int
     ): List<Department>
 
     @Query(
         "SELECT * FROM departments " +
-            "WHERE :column LIKE '%' || :query || '%' " +
-            "AND id > :startAfterId " +
+            "WHERE name LIKE '%' || :query || '%' " +
             "ORDER BY id " +
             "LIMIT :limit"
     )
-    fun findDepartmentsByQueryWithColumn(
+    fun findDepartmentsByQueryWithName(
         query: String,
-        column: String,
-        startAfterId: Int,
+        limit: Int
+    ): List<Department>
+
+    @Query(
+        "SELECT * FROM departments " +
+            "WHERE code LIKE '%' || :query || '%' " +
+            "ORDER BY id " +
+            "LIMIT :limit"
+    )
+    fun findDepartmentsByQueryWithCode(
+        query: String,
         limit: Int
     ): List<Department>
 

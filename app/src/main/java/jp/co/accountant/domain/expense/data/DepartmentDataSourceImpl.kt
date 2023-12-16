@@ -14,25 +14,27 @@ class DepartmentDataSourceImpl @Inject constructor(
     ): List<Department> {
         return departmentDao.findDepartmentsByQuery(
             query = query,
-            startAfterId = START_AFTER_ID,
             limit = limit
         )
     }
 
-    override suspend fun findDepartmentsByQueryWithColumn(
+    override suspend fun findDepartmentsByQueryWithName(
         query: String,
-        column: String,
         limit: Int
     ): List<Department> {
-        return departmentDao.findDepartmentsByQueryWithColumn(
+        return departmentDao.findDepartmentsByQueryWithName(
             query = query,
-            column = column,
-            startAfterId = START_AFTER_ID,
             limit = limit
         )
     }
 
-    companion object {
-        private const val START_AFTER_ID = 0
+    override suspend fun findDepartmentsByQueryWithCode(
+        query: String,
+        limit: Int
+    ): List<Department> {
+        return departmentDao.findDepartmentsByQueryWithCode(
+            query = query,
+            limit = limit
+        )
     }
 }

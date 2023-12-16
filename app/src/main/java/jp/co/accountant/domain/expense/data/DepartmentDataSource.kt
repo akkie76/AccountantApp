@@ -9,9 +9,13 @@ interface DepartmentDataSource {
         limit: Int
     ): List<Department>
 
-    suspend fun findDepartmentsByQueryWithColumn(
+    suspend fun findDepartmentsByQueryWithName(
         query: String,
-        column: String,
+        limit: Int
+    ): List<Department>
+
+    suspend fun findDepartmentsByQueryWithCode(
+        query: String,
         limit: Int
     ): List<Department>
 }
