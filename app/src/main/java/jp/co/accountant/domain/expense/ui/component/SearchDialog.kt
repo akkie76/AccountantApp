@@ -1,4 +1,4 @@
-package jp.co.accountant.domain.expense.ui
+package jp.co.accountant.domain.expense.ui.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import jp.co.accountant.app.data.Department
 import jp.co.accountant.app.ui.SearchTextField
-import jp.co.accountant.domain.expense.ui.component.DepartmentListItem
+import jp.co.accountant.domain.expense.ui.ExpenseViewModel
 import kotlinx.coroutines.launch
 
 @Composable

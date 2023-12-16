@@ -1,4 +1,4 @@
-package jp.co.accountant.domain.expense.ui
+package jp.co.accountant.domain.expense.ui.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
