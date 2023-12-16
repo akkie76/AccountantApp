@@ -74,7 +74,6 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("androidx.work:work-runtime-ktx:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("androidx.paging:paging-compose:3.2.1")
     implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
 
     testImplementation("junit:junit:4.13.2")
