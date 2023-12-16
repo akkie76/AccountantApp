@@ -3,13 +3,12 @@ package jp.co.accountant.app.data
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.google.gson.stream.JsonReader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import java.io.InputStreamReader
 
-// TODO: @Suppress
 @Suppress("BlockingMethodInNonBlockingContext")
 class DatabaseWorker(
     context: Context,
@@ -20,9 +19,8 @@ class DatabaseWorker(
             val filename = inputData.getString(KEY_FILENAME)
             if (filename != null) {
                 applicationContext.assets.open(filename).use { inputStream ->
-                    JsonReader(inputStream.reader()).use { jsonReader ->
-                        val companyType = object : TypeToken<List<Department>>() {}.type
-                        val departments: List<Department> = Gson().fromJson(jsonReader, companyType)
+                    InputStreamReader(inputStream).use { streamReader ->
+                        val departments: List<Department> = Json.decodeFromString(streamReader.readText())
                         val database = AppDatabase.getInstance(applicationContext)
                         database.departmentDao().insertAll(departments)
                         Result.success()

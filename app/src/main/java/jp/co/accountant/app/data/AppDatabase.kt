@@ -22,12 +22,23 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var instance: AppDatabase? = null
 
+        /**
+         * instanceを取得する
+         *
+         * @param context Context
+         * @return AppDatabase
+         */
         fun getInstance(context: Context): AppDatabase {
             return instance ?: synchronized(this) {
                 instance ?: buildDatabase(context).also { instance = it }
             }
         }
 
+        /**
+         * DatBaseを構築する
+         *
+         * @return AppDatabase
+         */
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .addCallback(
