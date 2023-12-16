@@ -1,9 +1,13 @@
 package jp.co.accountant.domain.expense.ui.component
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,18 +37,25 @@ fun DepartmentListItem(
         )
     }
 
-    BaseListItem(
-        modifier = Modifier.selectable(
-            selected = true,
-            onClick = {
-                focusManager.clearFocus()
-                onSelected(department)
-            }
-        ),
-        headLine = department.name,
-        supportingText = department.code,
-        trailingIcon = if (hasHistory) trailingIcon else null
-    )
+    Card(
+        modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.small_space)),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.background
+        )
+    ) {
+        BaseListItem(
+            modifier = Modifier.selectable(
+                selected = true,
+                onClick = {
+                    focusManager.clearFocus()
+                    onSelected(department)
+                }
+            ),
+            headLine = department.name,
+            supportingText = department.code,
+            trailingIcon = if (hasHistory) trailingIcon else null
+        )
+    }
 }
 
 @Preview
