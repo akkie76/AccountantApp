@@ -126,7 +126,16 @@ fun ExpenseScreen() {
                 }
 
                 OutlinedButton(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        customerName = ""
+                        tradingDate = ""
+                        receiptDate = ""
+                        invoiceBusinessNumber = ""
+                        eightPercentAmount = "0"
+                        tenPercentAmount = "0"
+                        department = ""
+                        others = ""
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = dimensionResource(R.dimen.large_space))

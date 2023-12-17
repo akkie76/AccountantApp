@@ -73,6 +73,7 @@ fun CommaSeparatorInput(
 }
 
 private class CommaSeparatorTransformation : VisualTransformation {
+    // FIXME: ゼロパディングを修正する
     override fun filter(text: AnnotatedString): TransformedText {
         val output = buildString {
             val reversed = text.text.reversed()

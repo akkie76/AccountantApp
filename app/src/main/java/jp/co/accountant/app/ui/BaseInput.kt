@@ -58,6 +58,7 @@ fun BaseInput(
                 if (text.isNotEmpty() && enabled) {
                     IconButton(onClick = {
                         input = ""
+                        onValueChange(input)
                     }) {
                         Icon(
                             imageVector = Icons.Default.Clear,
