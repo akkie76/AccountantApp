@@ -20,6 +20,7 @@ import jp.co.accountant.R
 import jp.co.accountant.app.ui.BaseInput
 import jp.co.accountant.app.ui.DatePickerInput
 import jp.co.accountant.app.ui.theme.AccountantAppTheme
+import jp.co.accountant.domain.expense.ui.component.AmountMoneyInput
 import jp.co.accountant.domain.expense.ui.component.DepartmentInput
 import jp.co.accountant.domain.expense.ui.component.InvoiceInput
 
@@ -58,13 +59,9 @@ fun ExpenseScreen() {
                 /** 事業者登録番号 **/
                 InvoiceInput {
                 }
-                // 金額
 
-                /** 8%金額 **/
-                BaseInput(titleId = R.string.eight_percent_money_title)
-
-                /** 10%金額 **/
-                BaseInput(titleId = R.string.ten_percent_money_title)
+                /** 金額 **/
+                AmountMoneyInput()
 
                 /** 負担部門 **/
                 DepartmentInput()
