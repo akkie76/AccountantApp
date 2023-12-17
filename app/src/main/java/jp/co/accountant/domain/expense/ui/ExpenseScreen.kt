@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import jp.co.accountant.R
 import jp.co.accountant.app.ui.BaseInput
+import jp.co.accountant.app.ui.DatePickerInput
 import jp.co.accountant.app.ui.theme.AccountantAppTheme
 import jp.co.accountant.domain.expense.ui.component.DepartmentInput
 
@@ -48,10 +49,10 @@ fun ExpenseScreen() {
                 BaseInput(titleId = R.string.customer_name_title)
 
                 /** 取引日 **/
-                BaseInput(titleId = R.string.trading_date_title)
+                DatePickerInput(titleId = R.string.trading_date_title)
 
                 /** 受領日 **/
-                BaseInput(titleId = R.string.receipt_date_title)
+                DatePickerInput(titleId = R.string.receipt_date_title)
 
                 // 金額
 

@@ -10,7 +10,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,10 +27,15 @@ import jp.co.accountant.R
 
 @Composable
 fun BaseInput(
+    modifier: Modifier = Modifier,
+    text: String = "",
     @StringRes titleId: Int,
-    placeholder: @Composable (() -> Unit)? = null
+    onValueChange: (String) -> Unit = {},
+    enabled: Boolean = true,
+    placeholder: @Composable (() -> Unit)? = null,
+    colors: TextFieldColors = OutlinedTextFieldDefaults.colors()
 ) {
-    var text by remember { mutableStateOf("") }
+    var input by remember { mutableStateOf(text) }
 
     Column(modifier = Modifier.padding(vertical = dimensionResource(R.dimen.large_space))) {
         Text(
@@ -39,15 +46,17 @@ fun BaseInput(
         )
         OutlinedTextField(
             value = text,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
+            enabled = enabled,
             placeholder = placeholder,
             onValueChange = { newValue ->
-                text = newValue
+                input = newValue
+                onValueChange(input)
             },
             trailingIcon = {
-                if (text.isNotEmpty()) {
+                if (text.isNotEmpty() && enabled) {
                     IconButton(onClick = {
-                        text = ""
+                        input = ""
                     }) {
                         Icon(
                             imageVector = Icons.Default.Clear,
@@ -56,7 +65,8 @@ fun BaseInput(
                     }
                 }
             },
-            singleLine = true
+            singleLine = true,
+            colors = colors
         )
     }
 }
