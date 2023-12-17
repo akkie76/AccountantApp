@@ -1,4 +1,4 @@
-package jp.co.accountant.domain.expense.usecase
+package jp.co.accountant.domain.expense
 
 enum class SegmentType(val value: Int) {
     NONE(0),

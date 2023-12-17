@@ -25,7 +25,7 @@ fun ExpenseScreen() {
         Surface(
             modifier = Modifier
                 .padding(top = paddingValues.calculateTopPadding())
-                .padding(horizontal = dimensionResource(id = R.dimen.large_space))
+                .padding(horizontal = dimensionResource(R.dimen.large_space))
         ) {
             DepartmentInput()
         }

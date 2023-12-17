@@ -31,14 +31,14 @@ fun DepartmentListItem(
 
     val trailingIcon: @Composable (() -> Unit) = {
         Icon(
-            painter = painterResource(id = R.drawable.arrow_outward),
+            painter = painterResource(R.drawable.arrow_outward),
             contentDescription = null,
-            modifier = Modifier.size(dimensionResource(id = R.dimen.list_icon_size))
+            modifier = Modifier.size(dimensionResource(R.dimen.list_icon_size))
         )
     }
 
     Card(
-        modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.small_space)),
+        modifier = Modifier.padding(bottom = dimensionResource(R.dimen.small_space)),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background
         )

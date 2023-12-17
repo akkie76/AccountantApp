@@ -1,6 +1,7 @@
 package jp.co.accountant.domain.expense.usecase
 
 import jp.co.accountant.app.data.DepartmentWithHistory
+import jp.co.accountant.domain.expense.SegmentType
 import jp.co.accountant.domain.expense.data.DepartmentDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,13 +15,13 @@ class FindDepartmentsUseCaseImpl @Inject constructor(
      * 条件に一致する部門をDataBaseから検索する
      *
      * @param query 検索クエリ
-     * @param index 選択されたindex
+     * @param segmentType 選択されたsegmentType
      * @return 利用履歴を含めた部門情報配列
      */
-    override suspend fun findDepartments(query: String, index: Int): List<DepartmentWithHistory> {
+    override suspend fun findDepartments(query: String, segmentType: SegmentType): List<DepartmentWithHistory> {
         return withContext(Dispatchers.Default) {
             val limit = decideQueryLimit(query)
-            when (SegmentType.from(index)) {
+            when (segmentType) {
                 SegmentType.NONE -> {
                     departmentDataSource.findDepartmentsByQuery(query, limit)
                 }

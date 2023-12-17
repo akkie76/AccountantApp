@@ -23,7 +23,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import jp.co.accountant.R
+import jp.co.accountant.app.ui.PreviewSurface
 
 @Composable
 fun DepartmentInput() {
@@ -32,12 +37,21 @@ fun DepartmentInput() {
     val focusManager = LocalFocusManager.current
 
     Column {
+        Text(
+            text = stringResource(R.string.department_input_title),
+            modifier = Modifier.padding(bottom = dimensionResource(R.dimen.medium_space)),
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.Bold
+        )
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
             OutlinedTextField(
                 value = query,
+                placeholder = {
+                    Text(text = stringResource(R.string.department_input_placeholder))
+                },
                 onValueChange = { newValue ->
                     query = newValue
                 },
@@ -64,11 +78,11 @@ fun DepartmentInput() {
                 },
                 modifier = Modifier
                     .height(IntrinsicSize.Min)
-                    .padding(start = 8.dp),
-                shape = RoundedCornerShape(4.dp)
+                    .padding(start = dimensionResource(R.dimen.medium_space)),
+                shape = RoundedCornerShape(dimensionResource(R.dimen.search_button_shape))
             ) {
                 Text(
-                    text = "検索",
+                    text = stringResource(R.string.search_button_title),
                     style = MaterialTheme.typography.labelLarge
                 )
             }
@@ -86,5 +100,13 @@ fun DepartmentInput() {
                 showSearchDialog = false
             }
         )
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewDepartmentInput() {
+    PreviewSurface {
+        DepartmentInput()
     }
 }

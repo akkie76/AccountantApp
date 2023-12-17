@@ -19,10 +19,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import jp.co.accountant.R
 import jp.co.accountant.app.data.Department
 import jp.co.accountant.app.ui.SearchTextField
+import jp.co.accountant.domain.expense.SegmentType
 import jp.co.accountant.domain.expense.ui.ExpenseViewModel
 import kotlinx.coroutines.launch
 
@@ -34,6 +37,7 @@ fun SearchDialog(
     onDismissRequest: () -> Unit = {}
 ) {
     var query by remember { mutableStateOf(text) }
+    var placeHolderResId by remember { mutableStateOf(R.string.placeholder_search) }
     val searchResults by viewModel.searchResults.collectAsState()
     val scope = rememberCoroutineScope()
 
@@ -42,18 +46,29 @@ fun SearchDialog(
     }
 
     AlertDialog(
-        modifier = Modifier.requiredHeight(600.dp),
+        modifier = Modifier.requiredHeight(dimensionResource(R.dimen.dialog_height)),
         onDismissRequest = {
         },
         title = {
-            SegmentedButtonRow { selectedIndex ->
-                viewModel.onSegmentChange(selectedIndex)
+            SegmentedButtonRow { segmentType ->
+                placeHolderResId = when (segmentType) {
+                    SegmentType.NONE -> R.string.placeholder_search
+                    SegmentType.NAME -> R.string.placeholder_search_name
+                    SegmentType.CODE -> R.string.placeholder_search_code
+                }
+                viewModel.onSegmentChange(segmentType)
             }
         },
         text = {
             Column(Modifier.fillMaxHeight()) {
                 SearchTextField(
                     text = query,
+                    placeholder = {
+                        Text(
+                            text = stringResource(placeHolderResId),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    },
                     onValueChange = { newValue ->
                         query = newValue
                         scope.launch {
@@ -66,7 +81,9 @@ fun SearchDialog(
                         }
                     }
                 )
-                LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
+                LazyColumn(
+                    modifier = Modifier.padding(top = dimensionResource(R.dimen.large_space))
+                ) {
                     items(searchResults) { departmentWithHistory ->
                         DepartmentListItem(departmentWithHistory) { department ->
                             viewModel.onSaveDepartmentHistory(department.id)
@@ -78,9 +95,9 @@ fun SearchDialog(
         },
         confirmButton = {
             Text(
-                text = "キャンセル",
+                text = stringResource(R.string.cancel),
                 modifier = Modifier
-                    .padding(horizontal = 8.dp)
+                    .padding(horizontal = dimensionResource(R.dimen.medium_space))
                     .clickable { onDismissRequest() },
                 style = MaterialTheme.typography.labelLarge
             )

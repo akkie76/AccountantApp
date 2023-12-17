@@ -12,11 +12,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import jp.co.accountant.domain.expense.SegmentType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SegmentedButtonRow(
-    onCheckedChange: (Int) -> Unit = {}
+    onCheckedChange: (SegmentType) -> Unit = {}
 ) {
     var selectedIndex by remember { mutableStateOf(0) }
     val options = listOf("全て", "部門", "コード")
@@ -28,7 +29,7 @@ fun SegmentedButtonRow(
                 icon = {},
                 onCheckedChange = {
                     selectedIndex = index
-                    onCheckedChange(selectedIndex)
+                    onCheckedChange(SegmentType.from(selectedIndex))
                 },
                 checked = selectedIndex == index
             ) {

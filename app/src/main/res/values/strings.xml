@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AccountantApp</string>
+    <string name="department_input_title">負担部門</string>
+    <string name="department_input_placeholder">負担部門を入力して検索</string>
+
+    <string name="search_button_title">検索</string>
+    <string name="placeholder_search">入力して検索</string>
+    <string name="placeholder_search_name">部門を入力して検索</string>
+    <string name="placeholder_search_code">コードを入力して検索</string>
+    <string name="cancel">キャンセル</string>
 </resources>

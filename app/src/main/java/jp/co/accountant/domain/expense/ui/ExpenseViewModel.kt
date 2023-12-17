@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.co.accountant.app.data.DepartmentWithHistory
+import jp.co.accountant.domain.expense.SegmentType
 import jp.co.accountant.domain.expense.usecase.FindDepartmentsUseCase
 import jp.co.accountant.domain.expense.usecase.InsertHistoryUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +23,7 @@ class ExpenseViewModel @Inject constructor(
     val searchResults: StateFlow<List<DepartmentWithHistory>> = _searchResults.asStateFlow()
 
     private var searchQuery: String = ""
-    private var selectedIndex: Int = 0
+    private var selectedSegmentType: SegmentType = SegmentType.NONE
 
     /**
      * 部門検索を行う
@@ -37,10 +38,10 @@ class ExpenseViewModel @Inject constructor(
     /**
      * セグメントの変更を行う
      *
-     * @param index @param index 選択されたindex
+     * @param segmentType 選択されたsegmentType
      */
-    fun onSegmentChange(index: Int) = viewModelScope.launch {
-        selectedIndex = index
+    fun onSegmentChange(segmentType: SegmentType) = viewModelScope.launch {
+        selectedSegmentType = segmentType
         searchDepartments()
     }
 
@@ -59,7 +60,7 @@ class ExpenseViewModel @Inject constructor(
     private fun searchDepartments() = viewModelScope.launch {
         val results = findDepartmentsUseCase.findDepartments(
             query = searchQuery,
-            index = selectedIndex
+            segmentType = selectedSegmentType
         )
         _searchResults.value = results
     }
