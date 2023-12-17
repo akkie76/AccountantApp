@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ExpenseViewModel @Inject constructor(
+class SearchViewModel @Inject constructor(
     private val findDepartmentsUseCase: FindDepartmentsUseCase,
     private val insertHistoryUseCase: InsertHistoryUseCase
 ) : ViewModel() {

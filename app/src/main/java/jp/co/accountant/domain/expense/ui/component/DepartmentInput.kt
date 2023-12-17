@@ -31,8 +31,12 @@ import jp.co.accountant.R
 import jp.co.accountant.app.ui.PreviewSurface
 
 @Composable
-fun DepartmentInput() {
-    var query by remember { mutableStateOf("") }
+fun DepartmentInput(
+    text: String = "",
+    onValueChange: (String) -> Unit = {}
+) {
+    var query by remember { mutableStateOf(text) }
+    var code by remember { mutableStateOf("") }
     var showSearchDialog by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
 
@@ -62,6 +66,7 @@ fun DepartmentInput() {
                     if (query.isNotEmpty()) {
                         IconButton(onClick = {
                             query = ""
+                            code = ""
                         }) {
                             Icon(
                                 imageVector = Icons.Default.Clear,
@@ -88,6 +93,13 @@ fun DepartmentInput() {
                 )
             }
         }
+        Text(
+            text = code,
+            modifier = Modifier
+                .padding(start = dimensionResource(R.dimen.large_space))
+                .padding(top = dimensionResource(R.dimen.small_space)),
+            style = MaterialTheme.typography.bodySmall
+        )
     }
 
     if (showSearchDialog) {
@@ -95,6 +107,8 @@ fun DepartmentInput() {
             text = query,
             onSelectDepartment = { department ->
                 query = department.name
+                code = "部門コード: ${department.code}"
+                onValueChange(query)
                 showSearchDialog = false
             },
             onDismissRequest = {

@@ -87,13 +87,31 @@ fun ExpenseScreen() {
                 )
 
                 /** 金額 **/
-                AmountMoneyInput()
+                AmountMoneyInput(
+                    eightPercentText = eightPercentAmount,
+                    tenPercentText = tenPercentAmount,
+                    onValueChange = { amount ->
+                        eightPercentAmount = amount.eightPercent
+                        tenPercentAmount = amount.tenPercent
+                    }
+                )
 
                 /** 負担部門 **/
-                DepartmentInput()
+                DepartmentInput(
+                    text = department,
+                    onValueChange = { newValue ->
+                        department = newValue
+                    }
+                )
 
                 /** 備考 **/
-                BaseInput(titleId = R.string.others_title)
+                BaseInput(
+                    text = others,
+                    titleId = R.string.others_title,
+                    onValueChange = { newValue ->
+                        others = newValue
+                    }
+                )
 
                 Button(
                     onClick = { /*TODO*/ },

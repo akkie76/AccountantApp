@@ -28,7 +28,7 @@ import jp.co.accountant.R
 @Composable
 fun BaseInput(
     modifier: Modifier = Modifier,
-    text: String = "",
+    text: String,
     @StringRes titleId: Int,
     onValueChange: (String) -> Unit = {},
     enabled: Boolean = true,
@@ -77,6 +77,9 @@ fun BaseInput(
 @Composable
 private fun PreviewBaseInput() {
     PreviewSurface {
-        BaseInput(titleId = R.string.department_title)
+        BaseInput(
+            text = "text",
+            titleId = R.string.department_title
+        )
     }
 }

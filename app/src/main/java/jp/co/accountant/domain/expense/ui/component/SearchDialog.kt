@@ -26,12 +26,12 @@ import jp.co.accountant.R
 import jp.co.accountant.app.data.Department
 import jp.co.accountant.app.ui.SearchTextField
 import jp.co.accountant.domain.expense.SegmentType
-import jp.co.accountant.domain.expense.ui.ExpenseViewModel
+import jp.co.accountant.domain.expense.ui.SearchViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun SearchDialog(
-    viewModel: ExpenseViewModel = hiltViewModel(),
+    viewModel: SearchViewModel = hiltViewModel(),
     text: String,
     onSelectDepartment: (Department) -> Unit = {},
     onDismissRequest: () -> Unit = {}
