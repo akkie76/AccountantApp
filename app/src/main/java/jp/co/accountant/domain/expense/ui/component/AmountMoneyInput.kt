@@ -14,15 +14,18 @@ import jp.co.accountant.domain.expense.data.AmountMoney
 
 @Composable
 fun AmountMoneyInput(
+    eightPercentText: String = "0",
+    tenPercentText: String = "0",
     onValueChange: (AmountMoney) -> Unit = {}
 ) {
-    var eightPercentAmount by remember { mutableStateOf("") }
-    var tenPercentAmount by remember { mutableStateOf("") }
+    var eightPercentAmount by remember { mutableStateOf(eightPercentText) }
+    var tenPercentAmount by remember { mutableStateOf(tenPercentText) }
 
     Column {
         CommaSeparatorInput(
             text = eightPercentAmount,
             titleId = R.string.eight_percent_money_title,
+            supportingTextId = R.string.eight_percent_money_supporting_text,
             onValueChange = { newValue ->
                 eightPercentAmount = newValue
                 onValueChange(AmountMoney(eightPercentAmount, tenPercentAmount))
@@ -32,6 +35,7 @@ fun AmountMoneyInput(
         CommaSeparatorInput(
             text = tenPercentAmount,
             titleId = R.string.ten_percent_money_title,
+            supportingTextId = R.string.ten_percent_money_supporting_text,
             onValueChange = { newValue ->
                 tenPercentAmount = newValue
                 onValueChange(AmountMoney(eightPercentAmount, tenPercentAmount))

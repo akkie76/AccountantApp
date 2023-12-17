@@ -3,21 +3,25 @@
     <string name="app_bar_title">領収書登録</string>
     <string name="customer_name_title">取引先名</string>
     <string name="trading_date_title">取引日</string>
+    <string name="trading_date_supporting_text">取引が成立した日付を入力してください</string>
     <string name="receipt_date_title">受領日</string>
+    <string name="receipt_date_supporting_text">商品、サービスを受領した日付を入力してください</string>
     <string name="invoice_title">事業者登録番号</string>
     <string name="invoice_supporting_message">Tと数字13桁で入力してください</string>
-    <string name="eight_percent_money_title">金額 1</string>
-    <string name="eight_percent_money_placeholder">税率8%対象の税込金額を入力してください</string>
-    <string name="ten_percent_money_title">金額 2</string>
-    <string name="ten_percent_money_placeholder">税率10%対象の税込金額を入力してください</string>
+    <string name="suffix_yen">円</string>
+    <string name="eight_percent_money_title">金額（税率8%）</string>
+    <string name="eight_percent_money_supporting_text">税率8%対象の税込金額を入力してください</string>
+    <string name="ten_percent_money_title">金額（税率10%）</string>
+    <string name="ten_percent_money_supporting_text">税率10%対象の税込金額を入力してください</string>
     <string name="department_title">負担部門</string>
     <string name="department_placeholder">負担部門を入力して検索</string>
     <string name="others_title">備考</string>
+    <string name="register">登録</string>
 
     <string name="search_button_title">検索</string>
     <string name="placeholder_search">入力して検索</string>
     <string name="placeholder_search_name">部門を入力して検索</string>
     <string name="placeholder_search_code">コードを入力して検索</string>
     <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">キャンセル</string>
 </resources>

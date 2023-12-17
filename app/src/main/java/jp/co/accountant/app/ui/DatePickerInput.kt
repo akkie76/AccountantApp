@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,10 +18,11 @@ import jp.co.accountant.R
 
 @Composable
 fun DatePickerInput(
+    text: String = "",
     @StringRes titleId: Int,
-    placeholder: @Composable (() -> Unit)? = null
+    onValueChange: (String) -> Unit = {}
 ) {
-    var date by remember { mutableStateOf("") }
+    var date by remember { mutableStateOf(text) }
     var showDatePicker by remember { mutableStateOf(false) }
 
     BaseInput(
@@ -30,7 +32,6 @@ fun DatePickerInput(
         text = date,
         enabled = false,
         titleId = titleId,
-        placeholder = placeholder,
         // FIXME: disabledIndicatorColorがやや異なるので修正する
         colors = TextFieldDefaults.colors(
             disabledContainerColor = MaterialTheme.colorScheme.surface,
@@ -45,6 +46,7 @@ fun DatePickerInput(
         BaseDatePickerDialog(
             onConfirm = { selectedDate ->
                 date = selectedDate
+                onValueChange(date)
                 showDatePicker = false
             },
             onDismiss = {

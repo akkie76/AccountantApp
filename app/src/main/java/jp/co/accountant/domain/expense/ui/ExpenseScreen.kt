@@ -1,20 +1,24 @@
 package jp.co.accountant.domain.expense.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import jp.co.accountant.R
 import jp.co.accountant.app.ui.BaseInput
@@ -22,23 +26,23 @@ import jp.co.accountant.app.ui.DatePickerInput
 import jp.co.accountant.app.ui.theme.AccountantAppTheme
 import jp.co.accountant.domain.expense.ui.component.AmountMoneyInput
 import jp.co.accountant.domain.expense.ui.component.DepartmentInput
+import jp.co.accountant.domain.expense.ui.component.ExpenseTopAppBar
 import jp.co.accountant.domain.expense.ui.component.InvoiceInput
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExpenseScreen() {
+    var customerName by remember { mutableStateOf("") }
+    var tradingDate by remember { mutableStateOf("") }
+    var receiptDate by remember { mutableStateOf("") }
+    var invoiceBusinessNumber by remember { mutableStateOf("") }
+    var eightPercentAmount by remember { mutableStateOf("0") }
+    var tenPercentAmount by remember { mutableStateOf("0") }
+    var department by remember { mutableStateOf("") }
+    var others by remember { mutableStateOf("") }
+
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text(text = stringResource(R.string.app_bar_title)) },
-                colors = TopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    scrolledContainerColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    actionIconContentColor = MaterialTheme.colorScheme.onPrimary
-                )
-            )
+            ExpenseTopAppBar()
         }
     ) { paddingValues ->
         Surface(
@@ -48,17 +52,39 @@ fun ExpenseScreen() {
         ) {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 /** 取引先名 **/
-                BaseInput(titleId = R.string.customer_name_title)
+                BaseInput(
+                    text = customerName,
+                    titleId = R.string.customer_name_title,
+                    onValueChange = { newValue ->
+                        customerName = newValue
+                    }
+                )
 
                 /** 取引日 **/
-                DatePickerInput(titleId = R.string.trading_date_title)
+                DatePickerInput(
+                    text = tradingDate,
+                    titleId = R.string.trading_date_title,
+                    onValueChange = { newValue ->
+                        tradingDate = newValue
+                    }
+                )
 
                 /** 受領日 **/
-                DatePickerInput(titleId = R.string.receipt_date_title)
+                DatePickerInput(
+                    text = receiptDate,
+                    titleId = R.string.receipt_date_title,
+                    onValueChange = { newValue ->
+                        receiptDate = newValue
+                    }
+                )
 
                 /** 事業者登録番号 **/
-                InvoiceInput {
-                }
+                InvoiceInput(
+                    text = invoiceBusinessNumber,
+                    onValueChange = { newValue ->
+                        invoiceBusinessNumber = newValue
+                    }
+                )
 
                 /** 金額 **/
                 AmountMoneyInput()
@@ -68,6 +94,31 @@ fun ExpenseScreen() {
 
                 /** 備考 **/
                 BaseInput(titleId = R.string.others_title)
+
+                Button(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = dimensionResource(R.dimen.button_vertical))
+                ) {
+                    Text(
+                        text = stringResource(R.string.register),
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                OutlinedButton(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = dimensionResource(R.dimen.large_space))
+                        .padding(bottom = dimensionResource(R.dimen.button_vertical))
+                ) {
+                    Text(
+                        text = stringResource(R.string.cancel),
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
         }
     }

@@ -17,11 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.core.text.isDigitsOnly
 import jp.co.accountant.R
 
@@ -30,6 +32,7 @@ fun CommaSeparatorInput(
     modifier: Modifier = Modifier,
     text: String = "",
     @StringRes titleId: Int,
+    @StringRes supportingTextId: Int,
     onValueChange: (String) -> Unit = {}
 ) {
     val visualTransformation = CommaSeparatorTransformation()
@@ -56,8 +59,17 @@ fun CommaSeparatorInput(
                 }
             },
             modifier = modifier.fillMaxWidth(),
+            // FIXME: フォントサイズの高さを修正する
+            //textStyle = TextStyle.Default.copy(textAlign = TextAlign.Right),
+            suffix = {
+                Text(text = stringResource(R.string.suffix_yen))
+            },
+            supportingText = {
+                Text(text = stringResource(supportingTextId))
+            },
             visualTransformation = visualTransformation,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            singleLine = true
         )
     }
 }

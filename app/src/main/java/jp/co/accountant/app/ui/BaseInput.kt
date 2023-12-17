@@ -33,6 +33,7 @@ fun BaseInput(
     onValueChange: (String) -> Unit = {},
     enabled: Boolean = true,
     placeholder: @Composable (() -> Unit)? = null,
+    supportingText: @Composable (() -> Unit)? = null,
     colors: TextFieldColors = OutlinedTextFieldDefaults.colors()
 ) {
     var input by remember { mutableStateOf(text) }
@@ -65,6 +66,7 @@ fun BaseInput(
                     }
                 }
             },
+            supportingText = supportingText,
             singleLine = true,
             colors = colors
         )
