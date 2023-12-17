@@ -1,7 +1,17 @@
 <resources>
     <string name="app_name">AccountantApp</string>
-    <string name="department_input_title">負担部門</string>
-    <string name="department_input_placeholder">負担部門を入力して検索</string>
+    <string name="app_bar_title">経費申請</string>
+    <string name="customer_name_title">取引先名</string>
+    <string name="trading_date_title">取引日</string>
+    <string name="receipt_date_title">受領日</string>
+    <string name="invoice_title">事業者登録番号</string>
+    <string name="eight_percent_money_title">金額 1</string>
+    <string name="eight_percent_money_placeholder">税率8%対象の税込金額を入力してください</string>
+    <string name="ten_percent_money_title">金額 2</string>
+    <string name="ten_percent_money_placeholder">税率10%対象の税込金額を入力してください</string>
+    <string name="department_title">負担部門</string>
+    <string name="department_placeholder">負担部門を入力して検索</string>
+    <string name="others_title">備考</string>
 
     <string name="search_button_title">検索</string>
     <string name="placeholder_search">入力して検索</string>

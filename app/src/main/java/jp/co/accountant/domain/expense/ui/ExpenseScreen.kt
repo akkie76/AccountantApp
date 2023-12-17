@@ -1,16 +1,23 @@
 package jp.co.accountant.domain.expense.ui
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import jp.co.accountant.R
+import jp.co.accountant.app.ui.BaseInput
 import jp.co.accountant.app.ui.theme.AccountantAppTheme
 import jp.co.accountant.domain.expense.ui.component.DepartmentInput
 
@@ -19,7 +26,16 @@ import jp.co.accountant.domain.expense.ui.component.DepartmentInput
 fun ExpenseScreen() {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(title = { Text(text = "経費申請") })
+            CenterAlignedTopAppBar(
+                title = { Text(text = stringResource(R.string.app_bar_title)) },
+                colors = TopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    scrolledContainerColor = MaterialTheme.colorScheme.onPrimary,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                    actionIconContentColor = MaterialTheme.colorScheme.onPrimary
+                )
+            )
         }
     ) { paddingValues ->
         Surface(
@@ -27,7 +43,30 @@ fun ExpenseScreen() {
                 .padding(top = paddingValues.calculateTopPadding())
                 .padding(horizontal = dimensionResource(R.dimen.large_space))
         ) {
-            DepartmentInput()
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                /** 取引先名 **/
+                BaseInput(titleId = R.string.customer_name_title)
+
+                /** 取引日 **/
+                BaseInput(titleId = R.string.trading_date_title)
+
+                /** 受領日 **/
+                BaseInput(titleId = R.string.receipt_date_title)
+
+                // 金額
+
+                /** 8%金額 **/
+                BaseInput(titleId = R.string.eight_percent_money_title)
+
+                /** 10%金額 **/
+                BaseInput(titleId = R.string.ten_percent_money_title)
+
+                /** 負担部門 **/
+                DepartmentInput()
+
+                /** 備考 **/
+                BaseInput(titleId = R.string.others_title)
+            }
         }
     }
 }

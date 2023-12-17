@@ -36,9 +36,9 @@ fun DepartmentInput() {
     var showSearchDialog by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
 
-    Column {
+    Column(modifier = Modifier.padding(vertical = dimensionResource(R.dimen.large_space))) {
         Text(
-            text = stringResource(R.string.department_input_title),
+            text = stringResource(R.string.department_title),
             modifier = Modifier.padding(bottom = dimensionResource(R.dimen.medium_space)),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Bold
@@ -50,7 +50,7 @@ fun DepartmentInput() {
             OutlinedTextField(
                 value = query,
                 placeholder = {
-                    Text(text = stringResource(R.string.department_input_placeholder))
+                    Text(text = stringResource(R.string.department_placeholder))
                 },
                 onValueChange = { newValue ->
                     query = newValue
@@ -69,7 +69,8 @@ fun DepartmentInput() {
                             )
                         }
                     }
-                }
+                },
+                singleLine = true
             )
             Button(
                 onClick = {
