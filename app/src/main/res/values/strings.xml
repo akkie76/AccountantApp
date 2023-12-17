@@ -5,6 +5,7 @@
     <string name="trading_date_title">取引日</string>
     <string name="receipt_date_title">受領日</string>
     <string name="invoice_title">事業者登録番号</string>
+    <string name="invoice_supporting_message">Tと数字13桁で入力してください</string>
     <string name="eight_percent_money_title">金額 1</string>
     <string name="eight_percent_money_placeholder">税率8%対象の税込金額を入力してください</string>
     <string name="ten_percent_money_title">金額 2</string>

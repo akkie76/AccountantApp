@@ -21,6 +21,7 @@ import jp.co.accountant.app.ui.BaseInput
 import jp.co.accountant.app.ui.DatePickerInput
 import jp.co.accountant.app.ui.theme.AccountantAppTheme
 import jp.co.accountant.domain.expense.ui.component.DepartmentInput
+import jp.co.accountant.domain.expense.ui.component.InvoiceInput
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,6 +55,9 @@ fun ExpenseScreen() {
                 /** 受領日 **/
                 DatePickerInput(titleId = R.string.receipt_date_title)
 
+                /** 事業者登録番号 **/
+                InvoiceInput {
+                }
                 // 金額
 
                 /** 8%金額 **/

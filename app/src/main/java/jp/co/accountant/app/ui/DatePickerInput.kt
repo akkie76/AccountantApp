@@ -55,7 +55,7 @@ fun DatePickerInput(
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview()
+@Preview
 @Composable
 private fun PreviewDatePickerInput() {
     Scaffold {

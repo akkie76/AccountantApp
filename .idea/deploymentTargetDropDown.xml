@@ -14,6 +14,9 @@
       <entry key="PreviewDepartmentListItem">
         <State />
       </entry>
+      <entry key="PreviewInvoiceInput">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>
