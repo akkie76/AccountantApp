@@ -20,6 +20,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -40,7 +41,8 @@ fun SearchDialog(
 ) {
     var query by remember { mutableStateOf(text) }
     var placeHolderResId by remember { mutableStateOf(R.string.placeholder_search) }
-    val searchResults by viewModel.searchResults.collectAsState()
+    val results by viewModel.searchResults.collectAsState()
+    val searchResults by rememberUpdatedState(newValue = results)
 
     LaunchedEffect(text) {
         viewModel.onSearch(text)
