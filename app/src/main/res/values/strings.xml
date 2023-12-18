@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AccountantApp</string>
+    <string name="app_name">経費精算</string>
     <string name="app_bar_title">領収書登録</string>
     <string name="customer_name_title">取引先名 *</string>
     <string name="trading_date_title">取引日 *</string>
@@ -17,6 +17,7 @@
     <string name="department_placeholder">負担部門を入力して検索</string>
     <string name="others_title">備考</string>
     <string name="register">登録</string>
+    <string name="confirm_register">領収書を登録しました</string>
 
     <string name="search_button_title">検索</string>
     <string name="placeholder_search">入力して検索</string>

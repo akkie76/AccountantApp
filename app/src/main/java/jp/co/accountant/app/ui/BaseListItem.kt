@@ -50,7 +50,7 @@ fun BaseListItem(
         } ?: run {
             Spacer(
                 modifier = Modifier
-                    .width(dimensionResource(R.dimen.list_icon_size))
+                    .width(dimensionResource(R.dimen.mini_icon_size))
             )
         }
         Spacer(modifier = Modifier.width(dimensionResource(R.dimen.medium_space)))

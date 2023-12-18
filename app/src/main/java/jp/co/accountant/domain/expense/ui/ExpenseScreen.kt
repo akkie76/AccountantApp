@@ -25,6 +25,7 @@ import jp.co.accountant.app.ui.BaseInput
 import jp.co.accountant.app.ui.DatePickerInput
 import jp.co.accountant.app.ui.theme.AccountantAppTheme
 import jp.co.accountant.domain.expense.ui.component.AmountMoneyInput
+import jp.co.accountant.domain.expense.ui.component.ConfirmDialog
 import jp.co.accountant.domain.expense.ui.component.DepartmentInput
 import jp.co.accountant.domain.expense.ui.component.ExpenseTopAppBar
 import jp.co.accountant.domain.expense.ui.component.InvoiceInput
@@ -39,6 +40,7 @@ fun ExpenseScreen() {
     var tenPercentAmount by remember { mutableStateOf("") }
     var department by remember { mutableStateOf("") }
     var others by remember { mutableStateOf("") }
+    var showConfirmDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -116,7 +118,7 @@ fun ExpenseScreen() {
                 )
 
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = { showConfirmDialog = true },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = dimensionResource(R.dimen.button_vertical))
@@ -147,6 +149,20 @@ fun ExpenseScreen() {
                         text = stringResource(R.string.cancel),
                         fontWeight = FontWeight.Bold
                     )
+                }
+            }
+
+            if (showConfirmDialog) {
+                ConfirmDialog {
+                    customerName = ""
+                    tradingDate = ""
+                    receiptDate = ""
+                    invoiceBusinessNumber = ""
+                    eightPercentAmount = ""
+                    tenPercentAmount = ""
+                    department = ""
+                    others = ""
+                    showConfirmDialog = false
                 }
             }
         }

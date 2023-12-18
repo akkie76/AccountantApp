@@ -33,7 +33,7 @@ fun DepartmentListItem(
         Icon(
             painter = painterResource(R.drawable.arrow_outward),
             contentDescription = null,
-            modifier = Modifier.size(dimensionResource(R.dimen.list_icon_size))
+            modifier = Modifier.size(dimensionResource(R.dimen.mini_icon_size))
         )
     }
 
