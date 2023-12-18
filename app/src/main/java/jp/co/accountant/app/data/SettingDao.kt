@@ -5,13 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 
 @Dao
-interface HistoryDao {
+interface SettingDao {
 
     /**
-     * Departmentの利用履歴を保存する
+     * Settingをinsertする
      *
-     * @param history History
+     * @param setting Databaseへのアクセス設定
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertHistory(history: History)
+    suspend fun insertSetting(setting: Setting)
 }

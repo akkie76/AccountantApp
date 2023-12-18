@@ -13,10 +13,15 @@ import jp.co.accountant.app.data.DatabaseWorker.Companion.KEY_FILENAME
 const val DATABASE_NAME = "accountant_app_db"
 const val DATA_FILENAME = "departments_data.json"
 
-@Database(entities = [Department::class, History::class], version = 1, exportSchema = false)
+@Database(
+    entities = [Department::class, History::class, Setting::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun departmentDao(): DepartmentDao
     abstract fun historyDao(): HistoryDao
+    abstract fun settingDao(): SettingDao
 
     companion object {
 

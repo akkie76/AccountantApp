@@ -24,7 +24,7 @@ interface DepartmentDao {
             "ORDER BY has_history DESC, id ASC " +
             "LIMIT :limit"
     )
-    fun findDepartmentsByQuery(
+    suspend fun findDepartmentsByQuery(
         query: String,
         limit: Int
     ): List<DepartmentWithHistory>
@@ -44,7 +44,7 @@ interface DepartmentDao {
             "ORDER BY has_history DESC, id ASC " +
             "LIMIT :limit"
     )
-    fun findDepartmentsByQueryWithName(
+    suspend fun findDepartmentsByQueryWithName(
         query: String,
         limit: Int
     ): List<DepartmentWithHistory>
@@ -64,7 +64,7 @@ interface DepartmentDao {
             "ORDER BY has_history DESC, id ASC " +
             "LIMIT :limit"
     )
-    fun findDepartmentsByQueryWithCode(
+    suspend fun findDepartmentsByQueryWithCode(
         query: String,
         limit: Int
     ): List<DepartmentWithHistory>

@@ -6,7 +6,7 @@ import jp.co.accountant.domain.expense.SegmentType
 interface FindDepartmentsUseCase {
 
     /**
-     * 条件に一致する部門をDataBaseから検索する
+     * 条件に一致する部門をDatabaseから検索する
      *
      * @param query 検索クエリ
      * @param segmentType 選択されたsegmentType

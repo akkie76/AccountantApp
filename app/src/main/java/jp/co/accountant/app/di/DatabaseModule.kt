@@ -9,6 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import jp.co.accountant.app.data.AppDatabase
 import jp.co.accountant.app.data.DepartmentDao
 import jp.co.accountant.app.data.HistoryDao
+import jp.co.accountant.app.data.SettingDao
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -16,13 +17,23 @@ object DatabaseModule {
 
     @Provides
     fun provideDepartmentDao(@ApplicationContext context: Context): DepartmentDao {
-        val appDatabase = AppDatabase.getInstance(context)
-        return appDatabase.departmentDao()
+        return createDatabase(context).departmentDao()
     }
 
     @Provides
     fun provideHistoryDao(@ApplicationContext context: Context): HistoryDao {
-        val appDatabase = AppDatabase.getInstance(context)
-        return appDatabase.historyDao()
+        return createDatabase(context).historyDao()
     }
+
+    @Provides
+    fun provideSettingDao(@ApplicationContext context: Context): SettingDao {
+        return createDatabase(context).settingDao()
+    }
+
+    /**
+     * AppDatabaseを生成する
+     *
+     * @param context Context
+     */
+    private fun createDatabase(context: Context) = AppDatabase.getInstance(context)
 }
