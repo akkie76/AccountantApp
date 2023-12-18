@@ -19,6 +19,7 @@ import jp.co.accountant.R
 fun DatePickerInput(
     text: String = "",
     @StringRes titleId: Int,
+    @StringRes descriptionId: Int,
     onValueChange: (String) -> Unit = {}
 ) {
     var date by remember { mutableStateOf(text) }
@@ -31,6 +32,7 @@ fun DatePickerInput(
         text = date,
         enabled = false,
         titleId = titleId,
+        descriptionId = descriptionId,
         // FIXME: disabledIndicatorColorがやや異なるので修正する
         colors = TextFieldDefaults.colors(
             disabledContainerColor = MaterialTheme.colorScheme.surface,
@@ -61,7 +63,10 @@ fun DatePickerInput(
 private fun PreviewDatePickerInput() {
     Scaffold {
         PreviewSurface {
-            DatePickerInput(titleId = R.string.trading_date_title)
+            DatePickerInput(
+                titleId = R.string.trading_date_title,
+                descriptionId = R.string.trading_date_description
+            )
         }
     }
 }

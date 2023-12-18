@@ -13,4 +13,9 @@
 
     <dimen name="card_shape">8dp</dimen>
     <dimen name="search_button_shape">4dp</dimen>
+
+    <dimen name="input_title_font_size">14dp</dimen>
+    <dimen name="input_title_line_height">21dp</dimen>
+    <dimen name="comma_field_font_size">16dp</dimen>
+    <dimen name="comma_field_line_height">24dp</dimen>
 </resources>

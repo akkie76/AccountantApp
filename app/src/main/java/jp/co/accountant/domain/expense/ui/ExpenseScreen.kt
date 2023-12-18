@@ -35,8 +35,8 @@ fun ExpenseScreen() {
     var tradingDate by remember { mutableStateOf("") }
     var receiptDate by remember { mutableStateOf("") }
     var invoiceBusinessNumber by remember { mutableStateOf("") }
-    var eightPercentAmount by remember { mutableStateOf("0") }
-    var tenPercentAmount by remember { mutableStateOf("0") }
+    var eightPercentAmount by remember { mutableStateOf("") }
+    var tenPercentAmount by remember { mutableStateOf("") }
     var department by remember { mutableStateOf("") }
     var others by remember { mutableStateOf("") }
 
@@ -64,6 +64,7 @@ fun ExpenseScreen() {
                 DatePickerInput(
                     text = tradingDate,
                     titleId = R.string.trading_date_title,
+                    descriptionId = R.string.trading_date_description,
                     onValueChange = { newValue ->
                         tradingDate = newValue
                     }
@@ -73,6 +74,7 @@ fun ExpenseScreen() {
                 DatePickerInput(
                     text = receiptDate,
                     titleId = R.string.receipt_date_title,
+                    descriptionId = R.string.receipt_date_description,
                     onValueChange = { newValue ->
                         receiptDate = newValue
                     }
@@ -131,8 +133,8 @@ fun ExpenseScreen() {
                         tradingDate = ""
                         receiptDate = ""
                         invoiceBusinessNumber = ""
-                        eightPercentAmount = "0"
-                        tenPercentAmount = "0"
+                        eightPercentAmount = ""
+                        tenPercentAmount = ""
                         department = ""
                         others = ""
                     },

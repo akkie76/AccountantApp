@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,9 +25,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import jp.co.accountant.R
+import jp.co.accountant.app.ui.DescriptionText
+import jp.co.accountant.app.ui.InputTitle
 import jp.co.accountant.app.ui.PreviewSurface
 
 @Composable
@@ -41,12 +42,7 @@ fun DepartmentInput(
     val focusManager = LocalFocusManager.current
 
     Column(modifier = Modifier.padding(vertical = dimensionResource(R.dimen.large_space))) {
-        Text(
-            text = stringResource(R.string.department_title),
-            modifier = Modifier.padding(bottom = dimensionResource(R.dimen.medium_space)),
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.Bold
-        )
+        InputTitle(text = stringResource(R.string.department_title))
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
@@ -87,19 +83,13 @@ fun DepartmentInput(
                     .padding(start = dimensionResource(R.dimen.medium_space)),
                 shape = RoundedCornerShape(dimensionResource(R.dimen.search_button_shape))
             ) {
-                Text(
-                    text = stringResource(R.string.search_button_title),
-                    style = MaterialTheme.typography.labelLarge
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null
                 )
             }
         }
-        Text(
-            text = code,
-            modifier = Modifier
-                .padding(start = dimensionResource(R.dimen.large_space))
-                .padding(top = dimensionResource(R.dimen.small_space)),
-            style = MaterialTheme.typography.bodySmall
-        )
+        DescriptionText(text = code)
     }
 
     if (showSearchDialog) {

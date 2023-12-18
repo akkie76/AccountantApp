@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,11 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.LineHeightStyle
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
 import jp.co.accountant.R
 
@@ -30,7 +33,7 @@ fun CommaSeparatorInput(
     modifier: Modifier = Modifier,
     text: String = "",
     @StringRes titleId: Int,
-    @StringRes supportingTextId: Int,
+    @StringRes descriptionId: Int,
     onValueChange: (String) -> Unit = {}
 ) {
     val visualTransformation = CommaSeparatorTransformation()
@@ -42,48 +45,51 @@ fun CommaSeparatorInput(
     }.text.text
 
     Column(modifier = Modifier.padding(vertical = dimensionResource(R.dimen.large_space))) {
-        Text(
-            text = stringResource(titleId),
-            modifier = Modifier.padding(bottom = dimensionResource(R.dimen.medium_space)),
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.Bold
-        )
+        InputTitle(text = stringResource(titleId))
         OutlinedTextField(
             value = input,
             onValueChange = { value ->
-                if (value.isDigitsOnly()) {
+                if (value.isDigitsOnly() && value.length <= MAX_DIGITS_SIZE) {
                     input = value
                     onValueChange(transformedText)
                 }
             },
             modifier = modifier.fillMaxWidth(),
-            // FIXME: フォントサイズの高さを修正する
-            // textStyle = TextStyle.Default.copy(textAlign = TextAlign.Right),
+            textStyle = TextStyle(
+                fontSize = dimensionResource(R.dimen.comma_field_font_size).value.sp,
+                lineHeight = dimensionResource(R.dimen.comma_field_line_height).value.sp,
+                textAlign = TextAlign.Right,
+                lineHeightStyle = LineHeightStyle(
+                    alignment = LineHeightStyle.Alignment.Proportional,
+                    trim = LineHeightStyle.Trim.None
+                ),
+                platformStyle = PlatformTextStyle(includeFontPadding = false)
+            ),
             suffix = {
-                Text(text = stringResource(R.string.suffix_yen))
-            },
-            supportingText = {
-                Text(text = stringResource(supportingTextId))
+                Text(
+                    text = stringResource(R.string.suffix_yen)
+                )
             },
             visualTransformation = visualTransformation,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true
         )
+        DescriptionText(text = stringResource(descriptionId))
     }
 }
 
+private const val MAX_DIGITS_SIZE = 10
+
 private class CommaSeparatorTransformation : VisualTransformation {
-    // FIXME: ゼロパディングを修正する
     override fun filter(text: AnnotatedString): TransformedText {
-        val output = buildString {
-            val reversed = text.text.reversed()
-            for (index in reversed.indices) {
-                if (index > 0 && index % 3 == 0) {
-                    append(',')
+        val output = StringBuilder(text)
+            .apply {
+                for (index in text.length - 3 downTo 1 step 3) {
+                    insert(index, ',')
                 }
-                append(reversed[index])
             }
-        }.reversed()
+            .toString()
+
         val offsetMapping = object : OffsetMapping {
             override fun originalToTransformed(offset: Int): Int {
                 val totalSeparatorCount = (text.length - 1) / 3
@@ -99,6 +105,10 @@ private class CommaSeparatorTransformation : VisualTransformation {
                 return offset - leftSeparatorCount
             }
         }
-        return TransformedText(text = AnnotatedString(output), offsetMapping = offsetMapping)
+
+        return TransformedText(
+            text = AnnotatedString(output),
+            offsetMapping = offsetMapping
+        )
     }
 }

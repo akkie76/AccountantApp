@@ -8,9 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
@@ -28,6 +25,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.text.isDigitsOnly
 import jp.co.accountant.R
+import jp.co.accountant.app.ui.DescriptionText
+import jp.co.accountant.app.ui.InputTitle
 import jp.co.accountant.app.ui.PreviewSurface
 
 @Composable
@@ -44,12 +43,7 @@ fun InvoiceInput(
     }.text.text
 
     Column(modifier = Modifier.padding(vertical = dimensionResource(R.dimen.large_space))) {
-        Text(
-            text = stringResource(R.string.invoice_title),
-            modifier = Modifier.padding(bottom = dimensionResource(R.dimen.medium_space)),
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.Bold
-        )
+        InputTitle(text = stringResource(R.string.invoice_title))
         OutlinedTextField(
             value = input,
             modifier = Modifier.fillMaxWidth(),
@@ -60,7 +54,7 @@ fun InvoiceInput(
                 }
             },
             trailingIcon = {
-                if (text.isNotEmpty()) {
+                if (input.isNotEmpty()) {
                     IconButton(onClick = {
                         input = ""
                     }) {
@@ -71,13 +65,11 @@ fun InvoiceInput(
                     }
                 }
             },
-            supportingText = {
-                Text(text = stringResource(R.string.invoice_supporting_message))
-            },
             visualTransformation = visualTransformation,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true
         )
+        DescriptionText(text = stringResource(R.string.invoice_description))
     }
 }
 
