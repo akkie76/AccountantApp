@@ -27,10 +27,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="jp.co.accountant" />
-                  <option name="mobileSdkAppId" value="1:702086868782:android:499a2d48d93570b16f14bf" />
-                  <option name="projectId" value="accountantapp-e02b0" />
-                  <option name="projectNumber" value="702086868782" />
+                  <option name="appId" value="PLACEHOLDER" />
+                  <option name="mobileSdkAppId" value="" />
+                  <option name="projectId" value="" />
+                  <option name="projectNumber" value="" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

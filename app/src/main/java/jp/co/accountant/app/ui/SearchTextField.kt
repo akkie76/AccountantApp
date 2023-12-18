@@ -23,6 +23,7 @@ fun SearchTextField(
     text: String,
     modifier: Modifier = Modifier,
     placeholder: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
     onValueChange: (String) -> Unit,
     onClickLeadingIcon: (String) -> Unit
 ) {
@@ -44,6 +45,7 @@ fun SearchTextField(
                 )
             }
         },
+        trailingIcon = trailingIcon,
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = MaterialTheme.colorScheme.surface,
             focusedContainerColor = MaterialTheme.colorScheme.surface
