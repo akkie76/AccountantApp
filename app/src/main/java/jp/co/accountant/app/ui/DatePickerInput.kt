@@ -29,7 +29,7 @@ fun DatePickerInput(
         modifier = Modifier.clickable {
             showDatePicker = true
         },
-        text = date,
+        text = text,
         enabled = false,
         titleId = titleId,
         descriptionId = descriptionId,
