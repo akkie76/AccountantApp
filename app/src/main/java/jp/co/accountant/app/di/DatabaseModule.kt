@@ -7,9 +7,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import jp.co.accountant.app.data.AppDatabase
-import jp.co.accountant.app.data.DepartmentDao
-import jp.co.accountant.app.data.HistoryDao
-import jp.co.accountant.app.data.SettingDao
+import jp.co.accountant.app.data.department.DepartmentDao
+import jp.co.accountant.app.data.history.HistoryDao
+import jp.co.accountant.app.data.setting.SettingDao
 
 @Module
 @InstallIn(SingletonComponent::class)

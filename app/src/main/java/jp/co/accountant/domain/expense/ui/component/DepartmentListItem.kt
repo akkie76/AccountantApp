@@ -16,8 +16,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import jp.co.accountant.R
-import jp.co.accountant.app.data.Department
-import jp.co.accountant.app.data.DepartmentWithHistory
+import jp.co.accountant.app.data.department.Department
+import jp.co.accountant.app.data.department.DepartmentWithHistory
 import jp.co.accountant.app.ui.BaseListItem
 
 @Composable

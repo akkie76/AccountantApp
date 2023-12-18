@@ -1,4 +1,4 @@
-package jp.co.accountant.app.data
+package jp.co.accountant.app.data.history
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

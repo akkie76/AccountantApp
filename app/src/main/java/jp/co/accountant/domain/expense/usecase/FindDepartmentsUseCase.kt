@@ -1,6 +1,6 @@
 package jp.co.accountant.domain.expense.usecase
 
-import jp.co.accountant.app.data.DepartmentWithHistory
+import jp.co.accountant.app.data.department.DepartmentWithHistory
 import jp.co.accountant.domain.expense.SegmentType
 
 interface FindDepartmentsUseCase {

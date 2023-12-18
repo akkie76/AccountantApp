@@ -1,6 +1,6 @@
 package jp.co.accountant.domain.expense.data
 
-import jp.co.accountant.app.data.DepartmentWithHistory
+import jp.co.accountant.app.data.department.DepartmentWithHistory
 
 interface DepartmentDataSource {
 

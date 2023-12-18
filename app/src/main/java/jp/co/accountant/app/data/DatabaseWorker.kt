@@ -3,6 +3,7 @@ package jp.co.accountant.app.data
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import jp.co.accountant.app.data.department.Department
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString

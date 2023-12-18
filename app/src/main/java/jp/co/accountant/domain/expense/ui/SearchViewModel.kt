@@ -3,7 +3,7 @@ package jp.co.accountant.domain.expense.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.co.accountant.app.data.DepartmentWithHistory
+import jp.co.accountant.app.data.department.DepartmentWithHistory
 import jp.co.accountant.domain.expense.SegmentType
 import jp.co.accountant.domain.expense.usecase.FindDepartmentsUseCase
 import jp.co.accountant.domain.expense.usecase.InsertHistoryUseCase

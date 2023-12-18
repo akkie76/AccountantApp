@@ -9,6 +9,12 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import jp.co.accountant.app.data.DatabaseWorker.Companion.KEY_FILENAME
+import jp.co.accountant.app.data.department.Department
+import jp.co.accountant.app.data.department.DepartmentDao
+import jp.co.accountant.app.data.history.History
+import jp.co.accountant.app.data.history.HistoryDao
+import jp.co.accountant.app.data.setting.Setting
+import jp.co.accountant.app.data.setting.SettingDao
 
 const val DATABASE_NAME = "accountant_app_db"
 const val DATA_FILENAME = "departments_data.json"

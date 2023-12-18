@@ -1,7 +1,7 @@
 package jp.co.accountant.domain.expense.data
 
-import jp.co.accountant.app.data.DepartmentDao
-import jp.co.accountant.app.data.DepartmentWithHistory
+import jp.co.accountant.app.data.department.DepartmentDao
+import jp.co.accountant.app.data.department.DepartmentWithHistory
 import javax.inject.Inject
 
 class DepartmentDataSourceImpl @Inject constructor(

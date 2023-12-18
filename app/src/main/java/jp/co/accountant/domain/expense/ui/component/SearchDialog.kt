@@ -23,7 +23,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import jp.co.accountant.R
-import jp.co.accountant.app.data.Department
+import jp.co.accountant.app.data.department.Department
 import jp.co.accountant.app.ui.SearchTextField
 import jp.co.accountant.domain.expense.SegmentType
 import jp.co.accountant.domain.expense.ui.SearchViewModel

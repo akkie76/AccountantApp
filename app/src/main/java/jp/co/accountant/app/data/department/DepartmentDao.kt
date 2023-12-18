@@ -1,4 +1,4 @@
-package jp.co.accountant.app.data
+package jp.co.accountant.app.data.department
 
 import androidx.room.Dao
 import androidx.room.Insert
