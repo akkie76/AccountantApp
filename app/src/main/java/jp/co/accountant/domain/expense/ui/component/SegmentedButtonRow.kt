@@ -7,19 +7,15 @@ import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import jp.co.accountant.domain.expense.SegmentType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SegmentedButtonRow(
+    segmentType: SegmentType,
     onCheckedChange: (SegmentType) -> Unit = {}
 ) {
-    var selectedIndex by remember { mutableStateOf(0) }
     val options = listOf("全て", "部門", "コード")
 
     MultiChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
@@ -28,10 +24,9 @@ fun SegmentedButtonRow(
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                 icon = {},
                 onCheckedChange = {
-                    selectedIndex = index
-                    onCheckedChange(SegmentType.from(selectedIndex))
+                    onCheckedChange(SegmentType.from(index))
                 },
-                checked = selectedIndex == index
+                checked = segmentType.value == index
             ) {
                 Text(label)
             }

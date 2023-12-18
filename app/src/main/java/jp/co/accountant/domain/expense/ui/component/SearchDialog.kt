@@ -20,7 +20,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -40,12 +39,12 @@ fun SearchDialog(
     onDismissRequest: () -> Unit = {}
 ) {
     var query by remember { mutableStateOf(text) }
+    var segmentType by remember { mutableStateOf(SegmentType.NONE) }
     var placeHolderResId by remember { mutableStateOf(R.string.placeholder_search) }
-    val results by viewModel.searchResults.collectAsState()
-    val searchResults by rememberUpdatedState(newValue = results)
+    val searchResults by viewModel.searchResults.collectAsState()
 
     LaunchedEffect(text) {
-        viewModel.onSearch(text)
+        viewModel.onSearch(text, segmentType)
     }
 
     AlertDialog(
@@ -53,13 +52,14 @@ fun SearchDialog(
         onDismissRequest = {
         },
         title = {
-            SegmentedButtonRow { segmentType ->
-                placeHolderResId = when (segmentType) {
+            SegmentedButtonRow(segmentType) { newValue ->
+                placeHolderResId = when (newValue) {
                     SegmentType.NONE -> R.string.placeholder_search
                     SegmentType.NAME -> R.string.placeholder_search_name
                     SegmentType.CODE -> R.string.placeholder_search_code
                 }
-                viewModel.onSegmentChange(segmentType)
+                segmentType = newValue
+                viewModel.onSearch(query, segmentType)
             }
         },
         text = {
@@ -76,7 +76,7 @@ fun SearchDialog(
                         if (query.isNotEmpty()) {
                             IconButton(onClick = {
                                 query = ""
-                                viewModel.onSearch(query)
+                                viewModel.onSearch(query, segmentType)
                             }) {
                                 Icon(
                                     imageVector = Icons.Default.Clear,
@@ -87,10 +87,10 @@ fun SearchDialog(
                     },
                     onValueChange = { newValue ->
                         query = newValue
-                        viewModel.onSearch(query)
+                        viewModel.onSearch(query, segmentType)
                     },
                     onClickLeadingIcon = {
-                        viewModel.onSearch(query)
+                        viewModel.onSearch(query, segmentType)
                     }
                 )
                 LazyColumn(
