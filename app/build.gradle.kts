@@ -64,11 +64,9 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    // implementation("androidx.compose.material3:material3")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("com.google.dagger:hilt-android:2.48.1")
     implementation("androidx.compose.material3:material3-android:1.2.0-alpha12")
-    // FIXME: kspへ移行する
     kapt("com.google.dagger:hilt-android-compiler:2.48.1")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-common:2.6.1")

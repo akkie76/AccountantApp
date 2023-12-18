@@ -47,7 +47,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         /**
-         * DatBaseを構築する
+         * Databaseを構築する
          *
          * @return AppDatabase
          */
