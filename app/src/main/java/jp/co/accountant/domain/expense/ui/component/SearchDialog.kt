@@ -93,15 +93,10 @@ fun SearchDialog(
                         viewModel.onSearch(query, segmentType)
                     }
                 )
-                LazyColumn(
-                    modifier = Modifier.padding(top = dimensionResource(R.dimen.large_space))
-                ) {
-                    items(searchResults) { departmentWithHistory ->
-                        DepartmentListItem(departmentWithHistory) { department ->
-                            viewModel.onSaveDepartmentHistory(department.id)
-                            onSelectDepartment(department)
-                        }
-                    }
+
+                DepartmentListContent(searchResults) { department ->
+                    viewModel.onSaveDepartmentHistory(department.id)
+                    onSelectDepartment(department)
                 }
             }
         },
